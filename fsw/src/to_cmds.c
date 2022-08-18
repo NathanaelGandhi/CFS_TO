@@ -466,7 +466,7 @@ void TO_AddTblEntryCmd(const CFE_SB_Buffer_t* pCmdMsg)
             {
                 g_TO_AppData.HkTlm.usCmdErrCnt++;
                 CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_EventType_ERROR,
-                                  "TO_ADD_TBL_ENTRY CMD failed.", pCmd->usMsgId);
+                                  "TO_ADD_TBL_ENTRY CMD failed. %d", pCmd->usMsgId);
                 /* Reset entry */
                 pEntry->usMsgId         = 0;
                 pEntry->qos.Priority    = 0;
