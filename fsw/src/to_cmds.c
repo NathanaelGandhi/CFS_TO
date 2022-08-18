@@ -1214,7 +1214,7 @@ void TO_SendDataTypePktCmd(const CFE_SB_Buffer_t* pCmdMsg)
                        TO_DATA_TYPE_MID,
                        sizeof(testPacket), true);
 
-        CFE_SB_TimeStampMsg((CFE_SB_MsgPtr_t) &testPacket);
+        CFE_SB_TimeStampMsg(&testPacket.TlmHeader.Msg);
 
         /* initialize the packet data */
         testPacket.synch = 0x6969;
