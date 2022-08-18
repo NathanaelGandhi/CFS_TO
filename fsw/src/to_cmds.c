@@ -66,7 +66,7 @@ void TO_NoopCmd(CFE_SB_MsgPtr_t pCmdMsg)
     {
         g_TO_AppData.HkTlm.usCmdCnt++;
         CFE_EVS_SendEvent(TO_CMD_INF_EID,
-                          CFE_EVS_INFORMATION,
+                          CFE_EVS_EventType_INFORMATION,
                           "No-op command. Version %d.%d.%d.%d",
                           TO_MAJOR_VERSION,
                           TO_MINOR_VERSION,
@@ -90,7 +90,7 @@ void TO_ResetCmd(CFE_SB_MsgPtr_t pCmdMsg)
         g_TO_AppData.HkTlm.usMsgSubErrCnt = 0;
         g_TO_AppData.HkTlm.usTblUpdateCnt = 0;
         g_TO_AppData.HkTlm.usTblErrCnt = 0;
-        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                           "Recvd RESET cmd (%d)", TO_RESET_CC);
     }
 }
@@ -107,7 +107,7 @@ void TO_EnableOutputCmd(CFE_SB_MsgPtr_t pCmdMsg)
     if (TO_VerifyCmdLength(pCmdMsg, sizeof(TO_EnableOutputCmd_t)))
     {
         g_TO_AppData.HkTlm.usCmdCnt++;
-        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                           "Recvd ENABLE_OUTPUT cmd (%d)", 
                           TO_ENABLE_OUTPUT_CC);
 
@@ -125,7 +125,7 @@ void TO_EnableOutputCmd(CFE_SB_MsgPtr_t pCmdMsg)
         if (routeMask > TO_MAX_ROUTE_MASK)
         {
             g_TO_AppData.HkTlm.usCmdErrCnt++;
-            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_ERROR,
+            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_EventType_ERROR,
                               " Route mask exceeds max route mask." 
                               " ENABLE_OUTPUT Cmd failed.");
         }
@@ -140,7 +140,7 @@ void TO_EnableOutputCmd(CFE_SB_MsgPtr_t pCmdMsg)
                         !g_TO_AppData.routes[ii].usIsConfig)
                     {
                         g_TO_AppData.HkTlm.usCmdErrCnt++;
-                        CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_ERROR,
+                        CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_EventType_ERROR,
                           "Attempting to enable route:%u which "
                           "does not exist or is not configured.", ii);
                         goto end_of_command;
@@ -156,14 +156,14 @@ void TO_EnableOutputCmd(CFE_SB_MsgPtr_t pCmdMsg)
             /* Update housekeeping usEnabledRoutes */
             g_TO_AppData.HkTlm.usEnabledRoutes |= routeMask;
             
-            CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+            CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                               "ENABLE OUTPUT CMD Succesful for Routes:0x%04x",
                               routeMask);
         }
         else
         {
             g_TO_AppData.HkTlm.usCmdErrCnt++;
-            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_ERROR,
+            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_EventType_ERROR,
                               " ENABLE OUTPUT CMD failed.");
         }
     }
@@ -185,13 +185,13 @@ void TO_DisableOutputCmd(CFE_SB_MsgPtr_t pCmdMsg)
     if (TO_VerifyCmdLength(pCmdMsg, sizeof(TO_DisableOutputCmd_t)))
     {
         g_TO_AppData.HkTlm.usCmdCnt++;
-        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                           "Recvd DISABLE_OUTPUT cmd (%d)", 
                           TO_DISABLE_OUTPUT_CC);
 
         if (g_TO_AppData.usOutputEnabled == 0)
         {
-            CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+            CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                               "Output already disabled. "
                               "DISABLE_OUTPUT CMD ignored.");
             goto end_of_command;
@@ -205,7 +205,7 @@ void TO_DisableOutputCmd(CFE_SB_MsgPtr_t pCmdMsg)
         
         if (iStatus == TO_SUCCESS)
         {
-            CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+            CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                               "DISABLE_OUTPUT CMD Succesful.");
         }
         /* If a positive value is returned, disable specified route mask */
@@ -216,7 +216,7 @@ void TO_DisableOutputCmd(CFE_SB_MsgPtr_t pCmdMsg)
             if (routeMask > TO_MAX_ROUTE_MASK)
             {
                 g_TO_AppData.HkTlm.usCmdErrCnt++;
-                CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_ERROR,
+                CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_EventType_ERROR,
                                   " Route mask exceeds max route mask." 
                                   " DISABLE_OUTPUT CMD failed.");
                 goto end_of_command;
@@ -233,7 +233,7 @@ void TO_DisableOutputCmd(CFE_SB_MsgPtr_t pCmdMsg)
 
             g_TO_AppData.HkTlm.usEnabledRoutes  &= ~routeMask;
 
-            CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+            CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                     "DISABLE_OUTPUT CMD Successful for Routes:0x%04x",
                     routeMask);
         }
@@ -259,7 +259,7 @@ void TO_ActivateRoutesCmd(CFE_SB_MsgPtr_t pCmdMsg)
     if (TO_VerifyCmdLength(pCmdMsg, sizeof(TO_RouteMaskArgCmd_t)))
     {
         g_TO_AppData.HkTlm.usCmdCnt++;
-        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                           "Recvd ACTIVATE_ROUTES cmd (%d)", 
                           TO_ACTIVATE_ROUTES_CC);
 
@@ -272,7 +272,7 @@ void TO_ActivateRoutesCmd(CFE_SB_MsgPtr_t pCmdMsg)
                 if (g_TO_AppData.routes[ii].usIsConfig == 0)
                 {
                     g_TO_AppData.HkTlm.usCmdErrCnt++;
-                    CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_ERROR,
+                    CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_EventType_ERROR,
                       "Route ID:%u is not configured and so can't be enabled. "
                       "ACTIVATE ROUTES with route mask:0x%04x failed.",
                       ii, cmd->usRouteMask);
@@ -281,7 +281,7 @@ void TO_ActivateRoutesCmd(CFE_SB_MsgPtr_t pCmdMsg)
                
                 if (g_TO_AppData.routes[ii].usIsEnabled == 1)
                 {
-                    CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+                    CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                       "Route ID:%u is already enabled.", ii);
                 }
 
@@ -291,7 +291,7 @@ void TO_ActivateRoutesCmd(CFE_SB_MsgPtr_t pCmdMsg)
 
         g_TO_AppData.HkTlm.usEnabledRoutes |= cmd->usRouteMask;
 
-        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                       "Routes 0x%04x succesfully enabled.", cmd->usRouteMask);
     }
 
@@ -310,7 +310,7 @@ void TO_DeactivateRoutesCmd(CFE_SB_MsgPtr_t pCmdMsg)
     if (TO_VerifyCmdLength(pCmdMsg, sizeof(TO_RouteMaskArgCmd_t)))
     {
         g_TO_AppData.HkTlm.usCmdCnt++;
-        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                           "Recvd DEACTIVATE_ROUTES cmd (%d)", 
                           TO_DEACTIVATE_ROUTES_CC);
 
@@ -326,7 +326,7 @@ void TO_DeactivateRoutesCmd(CFE_SB_MsgPtr_t pCmdMsg)
         
         g_TO_AppData.HkTlm.usEnabledRoutes &= ~cmd->usRouteMask;
 
-        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                     "Routes 0x%04x succesfully disabled.", cmd->usRouteMask);
     }
 
@@ -342,21 +342,21 @@ void TO_PauseOutputCmd(CFE_SB_MsgPtr_t pCmdMsg)
     if (TO_VerifyCmdLength(pCmdMsg, sizeof(TO_NoArgCmd_t)))
     {
         g_TO_AppData.HkTlm.usCmdCnt++;
-        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                           "Recvd PAUSE_OUTPUT cmd (%d)", 
                           TO_PAUSE_OUTPUT_CC);
         
         if (g_TO_AppData.usOutputEnabled == 0)
         {
             g_TO_AppData.HkTlm.usCmdErrCnt++;
-            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_ERROR,
+            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_EventType_ERROR,
                               "Output is disabled - can't pause. "
                               "PAUSE_OUTPUT CMD failed.");
             goto end_of_command;
         }
         
         g_TO_AppData.usOutputActive = 0;
-        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                           "PAUSE_OUTPUT CMD Succesful.");
     }
 
@@ -373,14 +373,14 @@ void TO_ResumeOutputCmd(CFE_SB_MsgPtr_t pCmdMsg)
     if (TO_VerifyCmdLength(pCmdMsg, sizeof(TO_NoArgCmd_t)))
     {
         g_TO_AppData.HkTlm.usCmdCnt++;
-        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                           "Recvd RESUME_OUTPUT cmd (%d)", 
                           TO_RESUME_OUTPUT_CC);
         
         if (g_TO_AppData.usOutputEnabled == 0)
         {
             g_TO_AppData.HkTlm.usCmdErrCnt++;
-            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_ERROR,
+            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_EventType_ERROR,
                               "Output is disabled - "
                               "send enable instead of resume. "
                               "RESUME_OUTPUT CMD failed.");
@@ -388,7 +388,7 @@ void TO_ResumeOutputCmd(CFE_SB_MsgPtr_t pCmdMsg)
         }
         
         g_TO_AppData.usOutputActive = 1;
-        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                           "RESUME_OUTPUT CMD Succesful."); 
     }
 
@@ -411,7 +411,7 @@ void TO_AddTblEntryCmd(CFE_SB_MsgPtr_t pCmdMsg)
     if (TO_VerifyCmdLength(pCmdMsg, sizeof(TO_AddTblEntryCmd_t)))
     {
         g_TO_AppData.HkTlm.usCmdCnt++;
-        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                           "Recvd ADD_TBL_ENTRY cmd (%d)", 
                           TO_ADD_TBL_ENTRY_CC);
         
@@ -424,7 +424,7 @@ void TO_AddTblEntryCmd(CFE_SB_MsgPtr_t pCmdMsg)
             pCmd->usMsgId == TO_UNUSED_ENTRY)
         {
             g_TO_AppData.HkTlm.usCmdErrCnt++;
-            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_ERROR,
+            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_EventType_ERROR,
                               "Received invalid MSG ID: 0x%04x."
                               " TO_ADD_TBL_ENTRY CMD failed.",
                               pCmd->usMsgId);
@@ -436,7 +436,7 @@ void TO_AddTblEntryCmd(CFE_SB_MsgPtr_t pCmdMsg)
         if (index == TO_TBL_FULL_ERR)
         {
             g_TO_AppData.HkTlm.usCmdErrCnt++;
-            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_ERROR,
+            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_EventType_ERROR,
                               "No empty table entries."
                               " TO_ADD_TBL_ENTRY CMD failed.");
         }
@@ -448,7 +448,7 @@ void TO_AddTblEntryCmd(CFE_SB_MsgPtr_t pCmdMsg)
             if (exists != TO_NO_MATCH)
             {
                 g_TO_AppData.HkTlm.usCmdErrCnt++;
-                CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_ERROR,
+                CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_EventType_ERROR,
                                   "Pre-existing table entry with MID:0x%04x"
                                   " TO_ADD_TBL_ENTRY CMD failed.", pCmd->usMsgId);
                 goto end_of_command;
@@ -465,7 +465,7 @@ void TO_AddTblEntryCmd(CFE_SB_MsgPtr_t pCmdMsg)
             if (iStatus != CFE_SUCCESS)
             {
                 g_TO_AppData.HkTlm.usCmdErrCnt++;
-                CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_ERROR,
+                CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_EventType_ERROR,
                                   "TO_ADD_TBL_ENTRY CMD failed.", pCmd->usMsgId);
                 /* Reset entry */
                 pEntry->usMsgId         = 0;
@@ -482,7 +482,7 @@ void TO_AddTblEntryCmd(CFE_SB_MsgPtr_t pCmdMsg)
             pEntry->usFlag      = pCmd->usFlag;
             pEntry->usState     = pCmd->usState;
             
-            CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+            CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                               "Succesfully added TBL entry. "
                               "Index:%d, MsgID:0x%04x, RouteMask:0x%04x, "
                               "usMsgLimit:%d, uiGroupData:0x%08x, initState:%u",
@@ -510,7 +510,7 @@ void TO_RemoveTblEntryCmd(CFE_SB_MsgPtr_t pCmdMsg)
     if (TO_VerifyCmdLength(pCmdMsg, sizeof(TO_MidArgCmd_t)))
     {
         g_TO_AppData.HkTlm.usCmdCnt++;
-        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                           "Recvd REMOVE_TBL_ENTRY cmd (%d)", 
                           TO_REMOVE_TBL_ENTRY_CC);
 
@@ -519,7 +519,7 @@ void TO_RemoveTblEntryCmd(CFE_SB_MsgPtr_t pCmdMsg)
             pCmd->usMsgId == TO_UNUSED_ENTRY)
         {
             g_TO_AppData.HkTlm.usCmdErrCnt++;
-            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_ERROR,
+            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_EventType_ERROR,
                               "Received invalid MSG ID: 0x%04x."
                               " TO_REMOVE_TBL_ENTRY CMD failed.",
                               pCmd->usMsgId);
@@ -532,7 +532,7 @@ void TO_RemoveTblEntryCmd(CFE_SB_MsgPtr_t pCmdMsg)
         if (index < 0)
         {
             g_TO_AppData.HkTlm.usCmdErrCnt++;
-            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_ERROR,
+            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_EventType_ERROR,
                               "MSG ID not found."
                               " TO_REMOVE_TBL_ENTRY CMD failed.");
             goto end_of_command;
@@ -545,7 +545,7 @@ void TO_RemoveTblEntryCmd(CFE_SB_MsgPtr_t pCmdMsg)
         if (iStatus != TO_SUCCESS)
         {
             g_TO_AppData.HkTlm.usCmdErrCnt++;
-            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_ERROR,
+            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_EventType_ERROR,
                               "TO_REMOVE_TBL_ENTRY CMD failed.");
             goto end_of_command;
         }
@@ -553,7 +553,7 @@ void TO_RemoveTblEntryCmd(CFE_SB_MsgPtr_t pCmdMsg)
         /* Set the table entry as removed. */
         pEntry->usMsgId = TO_REMOVED_ENTRY;
 
-        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                           "Succesfully Removed TBL entry. "
                           "Index:%d, MsgId:0x%04x",
                           index, pCmd->usMsgId);
@@ -576,7 +576,7 @@ void TO_EnableTblEntryCmd(CFE_SB_MsgPtr_t pCmdMsg)
     if (TO_VerifyCmdLength(pCmdMsg, sizeof(TO_MidArgCmd_t)))
     {
         g_TO_AppData.HkTlm.usCmdCnt++;
-        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                           "Recvd ENABLE_TBL_ENTRY cmd (%d)", 
                           TO_ENABLE_TBL_ENTRY_CC);
         
@@ -585,7 +585,7 @@ void TO_EnableTblEntryCmd(CFE_SB_MsgPtr_t pCmdMsg)
             pCmd->usMsgId == TO_UNUSED_ENTRY)
         {
             g_TO_AppData.HkTlm.usCmdErrCnt++;
-            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_ERROR,
+            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_EventType_ERROR,
                               "Received invalid MSG ID: 0x%04x."
                               " TO_ENABLE_TBL_ENTRY CMD failed.",
                               pCmd->usMsgId);
@@ -597,7 +597,7 @@ void TO_EnableTblEntryCmd(CFE_SB_MsgPtr_t pCmdMsg)
         if (index < 0)
         {
             g_TO_AppData.HkTlm.usCmdErrCnt++;
-            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_ERROR,
+            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_EventType_ERROR,
                               "MSG ID not found."
                               " TO_ENABLE_TBL_ENTRY CMD failed.");
             goto end_of_command;
@@ -608,7 +608,7 @@ void TO_EnableTblEntryCmd(CFE_SB_MsgPtr_t pCmdMsg)
         
         if (pEntry->usState == 1)
         {
-            CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+            CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                               "Table Entry idx:%u for MID:0x%04x already "
                               "enabled. TO_ENABLE_TBL_ENTRY CMD ignored.",
                               index, pCmd->usMsgId);
@@ -617,7 +617,7 @@ void TO_EnableTblEntryCmd(CFE_SB_MsgPtr_t pCmdMsg)
         
         pEntry->usState     = 1;
 
-        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                           "Succesfully Enabled TBL entry:%u, MID:0x%04x",
                           index, pCmd->usMsgId);
     }
@@ -639,7 +639,7 @@ void TO_DisableTblEntryCmd(CFE_SB_MsgPtr_t pCmdMsg)
     if (TO_VerifyCmdLength(pCmdMsg, sizeof(TO_MidArgCmd_t)))
     {
         g_TO_AppData.HkTlm.usCmdCnt++;
-        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                           "Recvd DISABLE_TBL_ENTRY cmd (%d)", 
                           TO_DISABLE_TBL_ENTRY_CC);
         
@@ -648,7 +648,7 @@ void TO_DisableTblEntryCmd(CFE_SB_MsgPtr_t pCmdMsg)
             pCmd->usMsgId == TO_UNUSED_ENTRY)
         {
             g_TO_AppData.HkTlm.usCmdErrCnt++;
-            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_ERROR,
+            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_EventType_ERROR,
                               "Received invalid MSG ID: 0x%04x."
                               " TO_DISABLE_TBL_ENTRY CMD failed.",
                               pCmd->usMsgId);
@@ -660,7 +660,7 @@ void TO_DisableTblEntryCmd(CFE_SB_MsgPtr_t pCmdMsg)
         if (index < 0)
         {
             g_TO_AppData.HkTlm.usCmdErrCnt++;
-            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_ERROR,
+            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_EventType_ERROR,
                               "MSG ID not found."
                               " TO_DISABLE_TBL_ENTRY CMD failed.");
             goto end_of_command;
@@ -671,7 +671,7 @@ void TO_DisableTblEntryCmd(CFE_SB_MsgPtr_t pCmdMsg)
         
         if (pEntry->usState == 0)
         {
-            CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+            CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                               "Table Entry idx:%u for MID:0x%04x already "
                               "disabled. TO_DISABLE_TBL_ENTRY CMD ignored.",
                               index, pCmd->usMsgId);
@@ -679,7 +679,7 @@ void TO_DisableTblEntryCmd(CFE_SB_MsgPtr_t pCmdMsg)
         }
         pEntry->usState = 0;
 
-        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                           "Succesfully Disabled TBL entry:%u, MID:0x%04x",
                           index, pCmd->usMsgId);
     }
@@ -700,7 +700,7 @@ void TO_EnableGroupCmd(CFE_SB_MsgPtr_t pCmdMsg)
     if (TO_VerifyCmdLength(pCmdMsg, sizeof(TO_GroupArgCmd_t)))
     {
         g_TO_AppData.HkTlm.usCmdCnt++;
-        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                           "Recvd ENABLE_GROUP cmd (%d)", 
                           TO_ENABLE_GROUP_CC);
         
@@ -709,26 +709,26 @@ void TO_EnableGroupCmd(CFE_SB_MsgPtr_t pCmdMsg)
         if (iStatus == TO_BAD_ARG_ERR)
         {
             g_TO_AppData.HkTlm.usCmdErrCnt++;
-            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_ERROR,
+            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_EventType_ERROR,
                               "Bad uiGroupData argument." 
                               "ENABLE_GROUP CMD failed.");
         }
         else if (iStatus == TO_NO_MATCH)
         {
             g_TO_AppData.HkTlm.usCmdErrCnt++;
-            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_ERROR,
+            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_EventType_ERROR,
                               "No group match found. "
                               "ENABLE_GROUP CMD failed.");
         }
         else if (iStatus == TO_NO_EFFECT)
         {
-            CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+            CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                               "Group already enabled. "
                               "ENABLE_GROUP CMD ignored.");
         }
         else if (iStatus == TO_SUCCESS)
         {
-            CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+            CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                               "ENABLE GROUP CMD Successful. GroupData:0x%08x",
                               pCmd->uiGroupData);
         }
@@ -747,7 +747,7 @@ void TO_DisableGroupCmd(CFE_SB_MsgPtr_t pCmdMsg)
     if (TO_VerifyCmdLength(pCmdMsg, sizeof(TO_GroupArgCmd_t)))
     {
         g_TO_AppData.HkTlm.usCmdCnt++;
-        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                           "Recvd DISABLE_GROUP cmd (%d)", 
                           TO_DISABLE_GROUP_CC);
         
@@ -756,27 +756,27 @@ void TO_DisableGroupCmd(CFE_SB_MsgPtr_t pCmdMsg)
         if (iStatus == TO_BAD_ARG_ERR)
         {
             g_TO_AppData.HkTlm.usCmdErrCnt++;
-            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_ERROR,
+            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_EventType_ERROR,
                               "Bad uiGroupData argument." 
                               "DISABLE_GROUP CMD Ignored.");
         }
         else if (iStatus == TO_NO_MATCH)
         {
             g_TO_AppData.HkTlm.usCmdErrCnt++;
-            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_ERROR,
+            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_EventType_ERROR,
                               "No group match found."
                               "DISABLE_GROUP CMD Ignored.");
         }
         else if (iStatus == TO_NO_EFFECT)
         {
             g_TO_AppData.HkTlm.usCmdErrCnt++;
-            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_ERROR,
+            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_EventType_ERROR,
                               "Group already disabled."
                               "DISABLE_GROUP CMD Ignored.");
         }
         else if (iStatus == TO_SUCCESS)
         {
-            CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+            CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                               "DISABLE GROUP CMD Successful. GroupData:0x%08x",
                               pCmd->uiGroupData);
         }
@@ -794,7 +794,7 @@ void TO_EnableAllCmd(CFE_SB_MsgPtr_t pCmdMsg)
     if (TO_VerifyCmdLength(pCmdMsg, sizeof(TO_NoArgCmd_t)))
     {
         g_TO_AppData.HkTlm.usCmdCnt++;
-        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                           "Recvd ENABLE ALL cmd (%d)", 
                           TO_ENABLE_ALL_CC);
         
@@ -802,13 +802,13 @@ void TO_EnableAllCmd(CFE_SB_MsgPtr_t pCmdMsg)
 
         if (iStatus == TO_NO_EFFECT) 
         {
-            CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+            CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                               "All table entries already enabled. "
                               "ENABLE_ALL CMD Ignored.");
         }
         else 
         {
-            CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+            CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                               "All Entries enabled.");
         }
     }
@@ -825,7 +825,7 @@ void TO_DisableAllCmd(CFE_SB_MsgPtr_t pCmdMsg)
     if (TO_VerifyCmdLength(pCmdMsg, sizeof(TO_NoArgCmd_t)))
     {
         g_TO_AppData.HkTlm.usCmdCnt++;
-        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                           "Recvd DISABLE ALL cmd (%d)", 
                           TO_DISABLE_ALL_CC);
         
@@ -833,13 +833,13 @@ void TO_DisableAllCmd(CFE_SB_MsgPtr_t pCmdMsg)
         
         if (iStatus == TO_NO_EFFECT) 
         {
-            CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+            CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                               "All table entries already disabled. "
                               "DISABLE_ALL CMD Ignored.");
         }
         else 
         {
-            CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+            CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                               "All Entries disabled.");
         }
     }
@@ -858,7 +858,7 @@ void TO_SetRouteByMidCmd(CFE_SB_MsgPtr_t pCmdMsg)
     if (TO_VerifyCmdLength(pCmdMsg, sizeof(TO_SetRouteByMidCmd_t)))
     {
         g_TO_AppData.HkTlm.usCmdCnt++;
-        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                           "Recvd SET_ROUTE_BY_MID cmd (%d)", 
                           TO_SET_ROUTE_BY_MID_CC);
         
@@ -871,7 +871,7 @@ void TO_SetRouteByMidCmd(CFE_SB_MsgPtr_t pCmdMsg)
             pCmd->usMsgId == TO_UNUSED_ENTRY)
         {
             g_TO_AppData.HkTlm.usCmdErrCnt++;
-            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_ERROR,
+            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_EventType_ERROR,
                               "Received invalid MSG ID: 0x%04x."
                               " TO_SET_ROUTE_BY_MID CMD failed.",
                               pCmd->usMsgId);
@@ -883,7 +883,7 @@ void TO_SetRouteByMidCmd(CFE_SB_MsgPtr_t pCmdMsg)
         if (index < 0)
         {
             g_TO_AppData.HkTlm.usCmdErrCnt++;
-            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_ERROR,
+            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_EventType_ERROR,
                               "MSG ID not found."
                               " TO_SET_ROUTE_BY_MID CMD failed.");
             goto end_of_command;
@@ -893,7 +893,7 @@ void TO_SetRouteByMidCmd(CFE_SB_MsgPtr_t pCmdMsg)
         pEntry = &g_TO_AppData.pConfigTable->entries[index];
         pEntry->usRouteMask = pCmd->usRouteMask;
 
-        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                           "Succesfully set usRouteMask=0x%04x for entry:%u, "
                           "MID:0x%04x",
                           pCmd->usRouteMask, index, pCmd->usMsgId);
@@ -915,7 +915,7 @@ void TO_SetRouteByGroupCmd(CFE_SB_MsgPtr_t pCmdMsg)
     if (TO_VerifyCmdLength(pCmdMsg, sizeof(TO_SetRouteByGroupCmd_t)))
     {
         g_TO_AppData.HkTlm.usCmdCnt++;
-        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                           "Recvd SET_ROUTE_BY_GROUP cmd (%d)", 
                           TO_SET_ROUTE_BY_GROUP_CC);
         
@@ -928,26 +928,26 @@ void TO_SetRouteByGroupCmd(CFE_SB_MsgPtr_t pCmdMsg)
         if (iStatus == TO_BAD_ARG_ERR)
         {
             g_TO_AppData.HkTlm.usCmdErrCnt++;
-            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_ERROR,
+            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_EventType_ERROR,
                               "SET_ROUTE_BY_GROUP CMD - Bad uiGroupData arg." 
                               " CMD Ignored.");
         }
         else if (iStatus == TO_NO_MATCH)
         {
             g_TO_AppData.HkTlm.usCmdErrCnt++;
-            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_ERROR,
+            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_EventType_ERROR,
                               "SET_ROUTE_BY_GROUP CMD - No group match found."
                               " CMD Ignored.");
         }
         else if (iStatus == TO_NO_EFFECT)
         {
-            CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+            CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                               "Route already set for group. "
                               "SET_ROUTE_BY_GROUP CMD ignored.");
         }
         else if (iStatus == TO_SUCCESS)
         {
-            CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+            CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                               "SET_ROUTE_BY_GROUP CMD Successful. "
                               "usRouteMask=0x%04x, uGroupData=0x%08x",
                               pCmd->usRouteMask, pCmd->uiGroupData);
@@ -970,7 +970,7 @@ void TO_ManageTableCmd(CFE_SB_MsgPtr_t pCmdMsg)
     if (TO_VerifyCmdLength(pCmdMsg, sizeof(CFE_TBL_NotifyCmd_t)))
     {
         g_TO_AppData.HkTlm.usCmdCnt++;
-        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                           "Recvd MANAGE TABLE CMD (%d)", 
                           TO_MANAGE_TABLE_CC);
 
@@ -984,7 +984,7 @@ void TO_ManageTableCmd(CFE_SB_MsgPtr_t pCmdMsg)
         {
             g_TO_AppData.HkTlm.usCmdErrCnt++;
             g_TO_AppData.HkTlm.usTblErrCnt++;
-            CFE_EVS_SendEvent(TO_TBL_ERR_EID, CFE_EVS_ERROR,
+            CFE_EVS_SendEvent(TO_TBL_ERR_EID, CFE_EVS_EventType_ERROR,
                "CFE_TBL_ReleaseAddress() returned error 0x%08x. "
                "TO_ManageTable failed.",
                iStatus);
@@ -997,7 +997,7 @@ void TO_ManageTableCmd(CFE_SB_MsgPtr_t pCmdMsg)
         {
             g_TO_AppData.HkTlm.usCmdErrCnt++;
             g_TO_AppData.HkTlm.usTblErrCnt++;
-            CFE_EVS_SendEvent(TO_TBL_ERR_EID, CFE_EVS_ERROR,
+            CFE_EVS_SendEvent(TO_TBL_ERR_EID, CFE_EVS_EventType_ERROR,
               "CFE_TBL_Manage() returned error 0x%08x.  TO_ManageTable failed.",
               iStatus);
         
@@ -1022,7 +1022,7 @@ void TO_ManageTableCmd(CFE_SB_MsgPtr_t pCmdMsg)
             {
                 g_TO_AppData.HkTlm.usCmdErrCnt++;
                 g_TO_AppData.HkTlm.usTblErrCnt++;
-                CFE_EVS_SendEvent(TO_PIPE_ERR_EID, CFE_EVS_ERROR,
+                CFE_EVS_SendEvent(TO_PIPE_ERR_EID, CFE_EVS_EventType_ERROR,
                     "Unsubscription of messages failed. "
                     "Reverting back table. TO_ManageTable failed.");
                 memcpy((void *) pTable, (void *) &oldTable, 
@@ -1037,7 +1037,7 @@ void TO_ManageTableCmd(CFE_SB_MsgPtr_t pCmdMsg)
             {
                 g_TO_AppData.HkTlm.usCmdErrCnt++;
                 g_TO_AppData.HkTlm.usTblErrCnt++;
-                CFE_EVS_SendEvent(TO_PIPE_ERR_EID, CFE_EVS_ERROR,
+                CFE_EVS_SendEvent(TO_PIPE_ERR_EID, CFE_EVS_EventType_ERROR,
                     "Subscription of messages failed. "
                     "Reverting back table. TO_ManageTable failed.");
                 memcpy((void *) pTable, (void *) &oldTable, 
@@ -1047,7 +1047,7 @@ void TO_ManageTableCmd(CFE_SB_MsgPtr_t pCmdMsg)
             }
             
             g_TO_AppData.HkTlm.usTblUpdateCnt++;
-            CFE_EVS_SendEvent(TO_TBL_INF_EID, CFE_EVS_INFORMATION,
+            CFE_EVS_SendEvent(TO_TBL_INF_EID, CFE_EVS_EventType_INFORMATION,
                               "ConfigTable updated succesfully. ");
         }
         else if (iStatus == CFE_SUCCESS)
@@ -1055,14 +1055,14 @@ void TO_ManageTableCmd(CFE_SB_MsgPtr_t pCmdMsg)
             /* Store the pointer */
             g_TO_AppData.pConfigTable = pTable;
             
-            CFE_EVS_SendEvent(TO_TBL_INF_EID, CFE_EVS_INFORMATION,
+            CFE_EVS_SendEvent(TO_TBL_INF_EID, CFE_EVS_EventType_INFORMATION,
                               "ConfigTable did not change.");
         }
         else 
         {
             g_TO_AppData.HkTlm.usCmdErrCnt++;
             g_TO_AppData.HkTlm.usTblErrCnt++;
-            CFE_EVS_SendEvent(TO_TBL_ERR_EID, CFE_EVS_ERROR,
+            CFE_EVS_SendEvent(TO_TBL_ERR_EID, CFE_EVS_EventType_ERROR,
                     "CFE_TBL_GetAddress() returned error 0x%08x. "  
                     "TO_ManageTable failed.",
                     iStatus);
@@ -1085,7 +1085,7 @@ void TO_SetRoutePeriodCmd(CFE_SB_MsgPtr_t pCmdMsg)
     if (TO_VerifyCmdLength(pCmdMsg, sizeof(TO_SetRoutePeriodCmd_t)))
     {
         g_TO_AppData.HkTlm.usCmdCnt++;
-        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                           "Recvd SET_ROUTE_PERIOD cmd (%d)", 
                           TO_SET_ROUTE_PERIOD_CC);
         
@@ -1093,7 +1093,7 @@ void TO_SetRoutePeriodCmd(CFE_SB_MsgPtr_t pCmdMsg)
         if (TO_ValidateRouteMask(pCmd->usRouteMask) != TO_SUCCESS)
         {
             g_TO_AppData.HkTlm.usCmdErrCnt++;
-            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_ERROR,
+            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_EventType_ERROR,
                               "Received invalid RouteMask: 0x%04x. "
                               "RouteMask includes non-existing routes. "
                               "TO_SET_ROUTE_PERIOD CMD failed.",
@@ -1105,7 +1105,7 @@ void TO_SetRoutePeriodCmd(CFE_SB_MsgPtr_t pCmdMsg)
         if (pCmd->usWakePeriod > TO_MAX_WAKEUP_COUNT) 
         {
             g_TO_AppData.HkTlm.usCmdErrCnt++;
-            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_ERROR,
+            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_EventType_ERROR,
                               "Received invalid WakePeriod:%d. "
                               "Period must be <= TO_MAX_WAKEUP_COUNT:%u. "
                               "TO_SET_ROUTE_PERIOD CMD failed.",
@@ -1116,7 +1116,7 @@ void TO_SetRoutePeriodCmd(CFE_SB_MsgPtr_t pCmdMsg)
         if (TO_MAX_WAKEUP_COUNT % pCmd->usWakePeriod != 0)
         {
             g_TO_AppData.HkTlm.usCmdErrCnt++;
-            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_ERROR,
+            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_EventType_ERROR,
                               "Received invalid WakePeriod:%d. "
                               "Wake Period must be a factor of %u. "
                               "TO_SET_ROUTE_PERIOD CMD failed.",
@@ -1133,7 +1133,7 @@ void TO_SetRoutePeriodCmd(CFE_SB_MsgPtr_t pCmdMsg)
             }
         }
 
-        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                           "SET_ROUTE_PERIOD CMD Successful. "
                           "usRouteMask=0x%04x, usWakePeriod=%d",
                           pCmd->usRouteMask, pCmd->usWakePeriod);
@@ -1154,7 +1154,7 @@ void TO_SetWakeupTimeoutCmd(CFE_SB_MsgPtr_t pCmdMsg)
     if (TO_VerifyCmdLength(pCmdMsg, sizeof(TO_SetWakeupTimeoutCmd_t)))
     {
         g_TO_AppData.HkTlm.usCmdCnt++;
-        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                           "Recvd SET_WAKEUP_TIMEOUT cmd (%d)", 
                           TO_SET_ROUTE_PERIOD_CC);
         
@@ -1163,7 +1163,7 @@ void TO_SetWakeupTimeoutCmd(CFE_SB_MsgPtr_t pCmdMsg)
             pCmd->uiWakeupTimeout < TO_MIN_WAKEUP_TIMEOUT)
         {
             g_TO_AppData.HkTlm.usCmdErrCnt++;
-            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_ERROR,
+            CFE_EVS_SendEvent(TO_CMD_ERR_EID, CFE_EVS_EventType_ERROR,
                               "Cmd Timeout value %d must be >= to "
                               "TO_MIN_WAKEUP_TIMEOUT: %d. "
                               "TO_SET_WAKEUP_TIMEOUT CMD failed.",
@@ -1173,7 +1173,7 @@ void TO_SetWakeupTimeoutCmd(CFE_SB_MsgPtr_t pCmdMsg)
         
         g_TO_AppData.uiWakeupTimeout = pCmd->uiWakeupTimeout;
 
-        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                           "SET_WAKEUP_TIMEOUT CMD Successful. "
                           "wakeup Timeout:%d (ms).", pCmd->uiWakeupTimeout);
     }
@@ -1205,7 +1205,7 @@ void TO_SendDataTypePktCmd(CFE_SB_MsgPtr_t pCmdMsg)
     if (TO_VerifyCmdLength(pCmdMsg, sizeof(CFE_SB_CmdHdr_t)))
     {
         g_TO_AppData.HkTlm.usCmdCnt++;
-        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_INFORMATION,
+        CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
                           "TO - Recvd SEND_DATA_TYPE cmd (%d)", 
                           TO_SEND_DATA_TYPE_CC);
 

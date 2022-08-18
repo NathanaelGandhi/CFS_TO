@@ -152,7 +152,7 @@ int32 TO_CustomProcessData(CFE_SB_Msg_t * pMsg, int32 size, int32 iTblIdx,
 
     if (iStatus < 0)
     {
-        CFE_EVS_SendEvent(TO_CUSTOM_ERR_EID, CFE_EVS_ERROR,
+        CFE_EVS_SendEvent(TO_CUSTOM_ERR_EID, CFE_EVS_EventType_ERROR,
                           "TO UDP sendto errno %d. Telemetry output disabled.", 
                           errno);
         g_TO_AppData.usOutputEnabled = 0;
@@ -169,7 +169,7 @@ void TO_CustomCleanup(void)
 {
     if (g_TO_AppData.usOutputEnabled)
     {
-        CFE_EVS_SendEvent(TO_CUSTOM_INF_EID, CFE_EVS_INFORMATION, 
+        CFE_EVS_SendEvent(TO_CUSTOM_INF_EID, CFE_EVS_EventType_INFORMATION, 
                           "TO - Closing Socket."); 
         IO_TransUdpCloseSocket(&g_TO_CustomData.udp);
     }

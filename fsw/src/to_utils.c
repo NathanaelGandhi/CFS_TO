@@ -347,7 +347,7 @@ bool  TO_VerifyCmdLength(CFE_SB_MsgPtr_t pMsg,
             CFE_SB_MsgId_t MsgId = CFE_SB_GetMsgId(pMsg);
             uint16 usCmdCode = CFE_SB_GetCmdCode(pMsg);
 
-            CFE_EVS_SendEvent(TO_MSGLEN_ERR_EID, CFE_EVS_ERROR,
+            CFE_EVS_SendEvent(TO_MSGLEN_ERR_EID, CFE_EVS_EventType_ERROR,
                               "Rcvd invalid msgLen: usMsgId=0x%04X, "
                               "cmdCode=%d, msgLen=%d, expectedLen=%d",
                               MsgId, usCmdCode, usMsgLen, usExpectedLen);
@@ -430,7 +430,7 @@ int32 TO_SubscribeMsg(TO_TableEntry_t *pEntry)
             if (iStatus != CFE_SUCCESS)
             {
                 g_TO_AppData.HkTlm.usMsgSubErrCnt++;
-                CFE_EVS_SendEvent(TO_INIT_ERR_EID, CFE_EVS_ERROR,
+                CFE_EVS_SendEvent(TO_INIT_ERR_EID, CFE_EVS_EventType_ERROR,
                     "TO Pipe:%s failed to subscribe to MID 0x%04x",
                      pTlmPipe->cTlmPipeName, pEntry->usMsgId);
                 break;
@@ -516,7 +516,7 @@ int32 TO_UnsubscribeMsg(TO_TableEntry_t  *pEntry)
             if (iStatus != CFE_SUCCESS)
             {
                 g_TO_AppData.HkTlm.usMsgSubErrCnt++;
-                CFE_EVS_SendEvent(TO_INIT_ERR_EID, CFE_EVS_ERROR,
+                CFE_EVS_SendEvent(TO_INIT_ERR_EID, CFE_EVS_EventType_ERROR,
                     "TO Pipe:%s failed to unsubscribe to MID 0x%04x",
                      pTlmPipe->cTlmPipeName, pEntry->usMsgId);
                 break;
