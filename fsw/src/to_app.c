@@ -669,7 +669,7 @@ void TO_ProcessNewData(TO_TlmPipe_t *pTlmPipe, uint16 usRouteId)
     CFE_SB_MsgPtr_t         pTlmMsg=NULL;
     CFE_SB_MsgId_t          usMsgId = 0;
     bool                  bGotNewMsg=true;
-    int32                   size = 0;
+    CFE_MSG_Size_t                   size = 0;
     int32                   iStatus = 0;
     int32                   iTblIdx = 0;
     TO_TableEntry_t         *pEntry=NULL;
@@ -728,7 +728,7 @@ void TO_ProcessNewData(TO_TlmPipe_t *pTlmPipe, uint16 usRouteId)
                         (pEntry->usRouteMask & (1<<usRouteId)) &&
                         g_TO_AppData.routes[usRouteId].usIsEnabled)
                     {
-                        size = CFE_SB_GetTotalMsgLength(pTlmMsg);
+                        CFE_MSG_GetSize(&pTlmMsg->Msg, &size);
                         iStatus = TO_CustomProcessData(pTlmMsg, size, iTblIdx, 
                                                        usRouteId);
                     

@@ -336,7 +336,7 @@ bool  TO_VerifyCmdLength(CFE_SB_MsgPtr_t pMsg,
 
     if (pMsg != NULL)
     {
-        usMsgLen = CFE_SB_GetTotalMsgLength(pMsg);
+        usMsgLen = CFE_MSG_GetSize(pMsg);
 
         if (usExpectedLen == usMsgLen)
         {
