@@ -581,7 +581,7 @@ int32 TO_RcvMsg(int32 iBlocking)
     CFE_SB_MsgId_t  MsgId;
 
     /* Wait for WakeUp messages from scheduler */
-    iStatus = CFE_SB_RcvMsg(&pMsg, g_TO_AppData.SchPipeId, iBlocking);
+    iStatus = CFE_SB_ReceiveBuffer(&pMsg, g_TO_AppData.SchPipeId, iBlocking);
         
     /* Performance Log Entry stamp - #2 */
     CFE_ES_PerfLogEntry(TO_MAIN_TASK_PERF_ID); 
@@ -702,7 +702,7 @@ void TO_ProcessNewData(TO_TlmPipe_t *pTlmPipe, uint16 usRouteId)
 
     while (bGotNewMsg)
     {
-        if (CFE_SB_RcvMsg(&pTlmMsg, pTlmPipe->cfePipeId, CFE_SB_POLL) == 
+        if (CFE_SB_ReceiveBuffer(&pTlmMsg, pTlmPipe->cfePipeId, CFE_SB_POLL) == 
             CFE_SUCCESS)
         {
             /* Process if output is enabled and active. Otherwise, drop. */
@@ -786,7 +786,7 @@ void TO_ProcessNewCmds(void)
 
     while (bGotNewMsg)
     {
-        if (CFE_SB_RcvMsg(&pCmdMsg, g_TO_AppData.CmdPipeId, CFE_SB_POLL) == 
+        if (CFE_SB_ReceiveBuffer(&pCmdMsg, g_TO_AppData.CmdPipeId, CFE_SB_POLL) == 
             CFE_SUCCESS)
         {
             usMsgId = CFE_SB_GetMsgId(pCmdMsg);

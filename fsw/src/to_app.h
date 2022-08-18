@@ -426,7 +426,7 @@ int32  TO_ValidateTable(void *);
 *
 *   \returns
 *   \retcode #CFE_SUCCESS \retdesc \copydoc CFE_SUCCESS \endcode
-*   \retstmt Any of the error codes from #CFE_SB_RcvMsg \endstmt
+*   \retstmt Any of the error codes from #CFE_SB_ReceiveBuffer \endstmt
 *
 *   \see 
 *       #TO_AppMain
