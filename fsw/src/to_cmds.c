@@ -1210,7 +1210,7 @@ void TO_SendDataTypePktCmd(CFE_SB_MsgPtr_t pCmdMsg)
                           TO_SEND_DATA_TYPE_CC);
 
         /* initialize data types packet */
-        CFE_SB_InitMsg(&testPacket,
+        CFE_MSG_Init(&testPacket,
                        TO_DATA_TYPE_MID,
                        sizeof(testPacket), true);
 
