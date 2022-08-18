@@ -1202,7 +1202,7 @@ void TO_SendDataTypePktCmd(const CFE_SB_Buffer_t* pCmdMsg)
     char            string_variable[10] = "ABCDEFGHIJ";
     
     
-    if (TO_VerifyCmdLength(pCmdMsg, sizeof(CFE_SB_CmdHdr_t)))
+    if (TO_VerifyCmdLength(pCmdMsg, sizeof(TO_NoArgCmd_t)))
     {
         g_TO_AppData.HkTlm.usCmdCnt++;
         CFE_EVS_SendEvent(TO_CMD_INF_EID, CFE_EVS_EventType_INFORMATION,
