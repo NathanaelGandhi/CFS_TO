@@ -42,7 +42,7 @@
 ** Include Files
 */
 #include "cfe.h"
-#include "network_includes.h"
+#include "osapi-sockets.h"
 #include "trans_udp.h"
 
 #include "to_app.h"
