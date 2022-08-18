@@ -1210,9 +1210,9 @@ void TO_SendDataTypePktCmd(const CFE_SB_Buffer_t* pCmdMsg)
                           TO_SEND_DATA_TYPE_CC);
 
         /* initialize data types packet */
-        CFE_MSG_Init(&testPacket,
+        CFE_MSG_Init(&testPacket.TlmHeader.Msg,
                        TO_DATA_TYPE_MID,
-                       sizeof(testPacket), true);
+                       sizeof(testPacket));
 
         CFE_SB_TimeStampMsg(&testPacket.TlmHeader.Msg);
 

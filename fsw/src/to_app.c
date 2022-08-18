@@ -228,13 +228,13 @@ int32 TO_InitData(void)
     /* Init output data */
     CFE_PSP_MemSet((void*)&g_TO_AppData.OutData, 0x00, 
                    sizeof(g_TO_AppData.OutData));
-    CFE_MSG_Init(&g_TO_AppData.OutData,
-                   TO_OUT_DATA_MID, sizeof(g_TO_AppData.OutData), true);
+    CFE_MSG_Init(&g_TO_AppData.OutData.TlmHeader.Msg,
+                   TO_OUT_DATA_MID, sizeof(g_TO_AppData.OutData));
 
     /* Init housekeeping packet */
     CFE_PSP_MemSet((void*)&g_TO_AppData.HkTlm, 0x00, sizeof(g_TO_AppData.HkTlm));
-    CFE_MSG_Init(&g_TO_AppData.HkTlm,
-                   TO_HK_TLM_MID, sizeof(g_TO_AppData.HkTlm), true);
+    CFE_MSG_Init(&g_TO_AppData.HkTlm.TlmHeader.Msg,
+                   TO_HK_TLM_MID, sizeof(g_TO_AppData.HkTlm));
 
     /* Init wakeup count */
     g_TO_AppData.uiWakeupTimeout = TO_WAKEUP_TIMEOUT;
