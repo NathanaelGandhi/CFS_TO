@@ -1212,7 +1212,7 @@ void TO_SendDataTypePktCmd(CFE_SB_MsgPtr_t pCmdMsg)
         /* initialize data types packet */
         CFE_SB_InitMsg(&testPacket,
                        TO_DATA_TYPE_MID,
-                       sizeof(testPacket), TRUE);
+                       sizeof(testPacket), true);
 
         CFE_SB_TimeStampMsg((CFE_SB_MsgPtr_t) &testPacket);
 
@@ -1227,8 +1227,8 @@ void TO_SendDataTypePktCmd(CFE_SB_MsgPtr_t pCmdMsg)
         testPacket.nibble1 = 0xA;
         testPacket.nibble2 = 0x4;
         
-        testPacket.bl1 = FALSE;
-        testPacket.bl2 = TRUE;
+        testPacket.bl1 = false;
+        testPacket.bl2 = true;
         testPacket.b1 = 16;
         testPacket.b2 = 127;
         testPacket.b3 = 0x7F;

@@ -839,7 +839,7 @@ CFE_SB_MsgId_t TO_GetMessageID(int32 tblIdx);
 *       #ALL_TO_CMDS
 *       #TO_CustomAppCmds
 *******************************************************************************/
-boolean TO_VerifyCmdLength(CFE_SB_MsgPtr_t, uint16);
+bool  TO_VerifyCmdLength(CFE_SB_MsgPtr_t, uint16);
 
 /******************************************************************************/
 /** \brief Subscribe route pipes to all config table messages

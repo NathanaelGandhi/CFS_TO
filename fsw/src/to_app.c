@@ -110,7 +110,7 @@ void TO_AppMain(void)
     /* Application Main Loop. Call CFE_ES_RunLoop() to check for changes in the
     ** Application's status. If there is a request to kill this Application, 
     ** it will be passed in through the RunLoop call. */
-    while (CFE_ES_RunLoop(&g_TO_AppData.uiRunStatus) == TRUE)
+    while (CFE_ES_RunLoop(&g_TO_AppData.uiRunStatus) == true)
     {
         /* Performance Log Exit stamp */
         CFE_ES_PerfLogExit(TO_MAIN_TASK_PERF_ID);
@@ -239,12 +239,12 @@ int32 TO_InitData(void)
     CFE_PSP_MemSet((void*)&g_TO_AppData.OutData, 0x00, 
                    sizeof(g_TO_AppData.OutData));
     CFE_SB_InitMsg(&g_TO_AppData.OutData,
-                   TO_OUT_DATA_MID, sizeof(g_TO_AppData.OutData), TRUE);
+                   TO_OUT_DATA_MID, sizeof(g_TO_AppData.OutData), true);
 
     /* Init housekeeping packet */
     CFE_PSP_MemSet((void*)&g_TO_AppData.HkTlm, 0x00, sizeof(g_TO_AppData.HkTlm));
     CFE_SB_InitMsg(&g_TO_AppData.HkTlm,
-                   TO_HK_TLM_MID, sizeof(g_TO_AppData.HkTlm), TRUE);
+                   TO_HK_TLM_MID, sizeof(g_TO_AppData.HkTlm), true);
 
     /* Init wakeup count */
     g_TO_AppData.uiWakeupTimeout = TO_WAKEUP_TIMEOUT;
@@ -678,12 +678,12 @@ void TO_ProcessNewData(TO_TlmPipe_t *pTlmPipe, uint16 usRouteId)
 {
     CFE_SB_MsgPtr_t         pTlmMsg=NULL;
     CFE_SB_MsgId_t          usMsgId = 0;
-    boolean                 bGotNewMsg=TRUE;
+    bool                  bGotNewMsg=true;
     int32                   size = 0;
     int32                   iStatus = 0;
     int32                   iTblIdx = 0;
     TO_TableEntry_t         *pEntry=NULL;
-    boolean                 bHasCfChnl=FALSE;
+    bool                  bHasCfChnl=false;
     int16                   sCfChnlIdx;
     uint16                  uiCntSemId; 
     OS_count_sem_prop_t     cntSemProp;
@@ -706,7 +706,7 @@ void TO_ProcessNewData(TO_TlmPipe_t *pTlmPipe, uint16 usRouteId)
     sCfChnlIdx = g_TO_AppData.routes[usRouteId].sCfChnlIdx;
     if (sCfChnlIdx >= 0 && g_TO_AppData.cfChnls[sCfChnlIdx].usIsEnabled)
     {
-        bHasCfChnl = TRUE;
+        bHasCfChnl = true;
         uiCntSemId = g_TO_AppData.cfChnls[sCfChnlIdx].uiCfCntSemId;
     }
 
@@ -764,7 +764,7 @@ void TO_ProcessNewData(TO_TlmPipe_t *pTlmPipe, uint16 usRouteId)
         }
         else
         {
-            bGotNewMsg = FALSE;
+            bGotNewMsg = false;
         }
     }
 
@@ -792,7 +792,7 @@ void TO_ProcessNewCmds(void)
 {
     CFE_SB_MsgPtr_t pCmdMsg=NULL;
     CFE_SB_MsgId_t  usMsgId;
-    boolean         bGotNewMsg=TRUE;
+    bool          bGotNewMsg=true;
 
     while (bGotNewMsg)
     {
@@ -820,7 +820,7 @@ void TO_ProcessNewCmds(void)
         }
         else
         {
-            bGotNewMsg = FALSE;
+            bGotNewMsg = false;
         }
     }
 }

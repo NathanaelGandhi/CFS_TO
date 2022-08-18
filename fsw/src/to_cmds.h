@@ -116,7 +116,7 @@ typedef struct
     uint16             nibble1:4;
     uint16             nibble2:4;
     
-    uint8              bl1, bl2;       /* boolean */
+    uint8              bl1, bl2;       /* bool  */
     
     int8               b1, b2, b3, b4;
     int16              w1,w2;

@@ -328,10 +328,10 @@ CFE_SB_MsgId_t TO_GetMessageID(int32 tblIdx)
 /******************************************************************************/
 /** \brief Verify the command length against expected length
 *******************************************************************************/
-boolean TO_VerifyCmdLength(CFE_SB_MsgPtr_t pMsg,
+bool  TO_VerifyCmdLength(CFE_SB_MsgPtr_t pMsg,
                            uint16 usExpectedLen)
 {
-    boolean bResult=FALSE;
+    bool  bResult=false;
     uint16  usMsgLen=0;
 
     if (pMsg != NULL)
@@ -340,7 +340,7 @@ boolean TO_VerifyCmdLength(CFE_SB_MsgPtr_t pMsg,
 
         if (usExpectedLen == usMsgLen)
         {
-            bResult = TRUE;
+            bResult = true;
         }
         else
         {
