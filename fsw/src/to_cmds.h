@@ -143,7 +143,7 @@ typedef struct
 *   \param[in,out] g_TO_AppData TO Global Application Data
 *   \param[in] pCmdMsg Cmd of type TO_NoArgCmd_t
 *******************************************************************************/
-void TO_NoopCmd(CFE_SB_MsgPtr_t);
+void TO_NoopCmd(const CFE_SB_Buffer_t* SbBufPtr);
 
 
 /******************************************************************************/
@@ -157,7 +157,7 @@ void TO_NoopCmd(CFE_SB_MsgPtr_t);
 *   \param[in,out] g_TO_AppData TO Global Application Data
 *   \param[in] pCmdMsg Cmd of type TO_NoArgCmd_t
 *******************************************************************************/
-void TO_ResetCmd(CFE_SB_MsgPtr_t);
+void TO_ResetCmd(const CFE_SB_Buffer_t* SbBufPtr);
 
 
 /******************************************************************************/
@@ -176,7 +176,7 @@ void TO_ResetCmd(CFE_SB_MsgPtr_t);
 *   \see
 *       #TO_CustomEnableOutputCmd
 *******************************************************************************/
-void TO_EnableOutputCmd(CFE_SB_MsgPtr_t);
+void TO_EnableOutputCmd(const CFE_SB_Buffer_t* SbBufPtr);
 
 
 /******************************************************************************/
@@ -193,7 +193,7 @@ void TO_EnableOutputCmd(CFE_SB_MsgPtr_t);
 *   \param[in,out] g_TO_AppData TO Global Application Data
 *   \param[in] pCmdMsg Cmd of type TO_DisableOutputCmd_t
 *******************************************************************************/
-void TO_DisableOutputCmd(CFE_SB_MsgPtr_t);
+void TO_DisableOutputCmd(const CFE_SB_Buffer_t* SbBufPtr);
 
 
 /******************************************************************************/
@@ -208,7 +208,7 @@ void TO_DisableOutputCmd(CFE_SB_MsgPtr_t);
 *   \param[in,out] g_TO_AppData TO Global Application Data
 *   \param[in] pCmdMsg Cmd of type TO_RouteMaskArgCmd_t
 *******************************************************************************/
-void TO_ActivateRoutesCmd(CFE_SB_MsgPtr_t);
+void TO_ActivateRoutesCmd(const CFE_SB_Buffer_t* SbBufPtr);
 
 
 /******************************************************************************/
@@ -222,7 +222,7 @@ void TO_ActivateRoutesCmd(CFE_SB_MsgPtr_t);
 *   \param[in,out] g_TO_AppData TO Global Application Data
 *   \param[in] pCmdMsg Cmd of type TO_RouteMaskArgCmd_t
 *******************************************************************************/
-void TO_DeactivateRoutesCmd(CFE_SB_MsgPtr_t);
+void TO_DeactivateRoutesCmd(const CFE_SB_Buffer_t* SbBufPtr);
 
 
 /******************************************************************************/
@@ -237,7 +237,7 @@ void TO_DeactivateRoutesCmd(CFE_SB_MsgPtr_t);
 *   \param[in,out] g_TO_AppData TO Global Application Data
 *   \param[in] pCmdMsg Cmd of type TO_NoArgCmd_t
 *******************************************************************************/
-void TO_PauseOutputCmd(CFE_SB_MsgPtr_t);
+void TO_PauseOutputCmd(const CFE_SB_Buffer_t* SbBufPtr);
 
 
 /******************************************************************************/
@@ -253,7 +253,7 @@ void TO_PauseOutputCmd(CFE_SB_MsgPtr_t);
 *   \param[in,out] g_TO_AppData TO Global Application Data
 *   \param[in] pCmdMsg Cmd of type TO_NoArgCmd_t
 *******************************************************************************/
-void TO_ResumeOutputCmd(CFE_SB_MsgPtr_t);
+void TO_ResumeOutputCmd(const CFE_SB_Buffer_t* SbBufPtr);
 
 
 /******************************************************************************/
@@ -273,7 +273,7 @@ void TO_ResumeOutputCmd(CFE_SB_MsgPtr_t);
 *   \param[in,out] g_TO_AppData TO Global Application Data
 *   \param[in] pCmdMsg Cmd of type TO_AddTblEntryCmd_t
 *******************************************************************************/
-void TO_AddTblEntryCmd(CFE_SB_MsgPtr_t);
+void TO_AddTblEntryCmd(const CFE_SB_Buffer_t* SbBufPtr);
 
 
 /******************************************************************************/
@@ -291,7 +291,7 @@ void TO_AddTblEntryCmd(CFE_SB_MsgPtr_t);
 *   \param[in,out] g_TO_AppData TO Global Application Data
 *   \param[in] pCmdMsg Cmd of type TO_MidArgCmd_t
 *******************************************************************************/
-void TO_RemoveTblEntryCmd(CFE_SB_MsgPtr_t);
+void TO_RemoveTblEntryCmd(const CFE_SB_Buffer_t* SbBufPtr);
 
 
 /******************************************************************************/
@@ -308,7 +308,7 @@ void TO_RemoveTblEntryCmd(CFE_SB_MsgPtr_t);
 *   \param[in,out] g_TO_AppData TO Global Application Data
 *   \param[in] pCmdMsg Cmd of type TO_MidArgCmd_t
 *******************************************************************************/
-void TO_EnableTblEntryCmd(CFE_SB_MsgPtr_t);
+void TO_EnableTblEntryCmd(const CFE_SB_Buffer_t* SbBufPtr);
 
 
 /******************************************************************************/
@@ -325,7 +325,7 @@ void TO_EnableTblEntryCmd(CFE_SB_MsgPtr_t);
 *   \param[in,out] g_TO_AppData TO Global Application Data
 *   \param[in] pCmdMsg Cmd of type TO_MidArgCmd_t
 *******************************************************************************/
-void TO_DisableTblEntryCmd(CFE_SB_MsgPtr_t);
+void TO_DisableTblEntryCmd(const CFE_SB_Buffer_t* SbBufPtr);
 
 
 /******************************************************************************/
@@ -342,7 +342,7 @@ void TO_DisableTblEntryCmd(CFE_SB_MsgPtr_t);
 *   \param[in,out] g_TO_AppData TO Global Application Data
 *   \param[in] pCmdMsg Cmd of type TO_GroupArgCmd_t
 *******************************************************************************/
-void TO_EnableGroupCmd(CFE_SB_MsgPtr_t);
+void TO_EnableGroupCmd(const CFE_SB_Buffer_t* SbBufPtr);
 
 
 /******************************************************************************/
@@ -359,7 +359,7 @@ void TO_EnableGroupCmd(CFE_SB_MsgPtr_t);
 *   \param[in,out] g_TO_AppData TO Global Application Data
 *   \param[in] pCmdMsg Cmd of type TO_GroupArgCmd_t
 *******************************************************************************/
-void TO_DisableGroupCmd(CFE_SB_MsgPtr_t);
+void TO_DisableGroupCmd(const CFE_SB_Buffer_t* SbBufPtr);
 
 
 /******************************************************************************/
@@ -373,7 +373,7 @@ void TO_DisableGroupCmd(CFE_SB_MsgPtr_t);
 *   \param[in,out] g_TO_AppData TO Global Application Data
 *   \param[in] pCmdMsg Cmd of type TO_NoArgCmd_t
 *******************************************************************************/
-void TO_EnableAllCmd(CFE_SB_MsgPtr_t);
+void TO_EnableAllCmd(const CFE_SB_Buffer_t* SbBufPtr);
 
 
 /******************************************************************************/
@@ -387,7 +387,7 @@ void TO_EnableAllCmd(CFE_SB_MsgPtr_t);
 *   \param[in,out] g_TO_AppData TO Global Application Data
 *   \param[in] pCmdMsg Cmd of type TO_NoArgCmd_t
 *******************************************************************************/
-void TO_DisableAllCmd(CFE_SB_MsgPtr_t);
+void TO_DisableAllCmd(const CFE_SB_Buffer_t* SbBufPtr);
 
 
 /******************************************************************************/
@@ -403,7 +403,7 @@ void TO_DisableAllCmd(CFE_SB_MsgPtr_t);
 *   \param[in,out] g_TO_AppData TO Global Application Data
 *   \param[in] pCmdMsg Cmd of type TO_SetRouteByMidCmd_t
 *******************************************************************************/
-void TO_SetRouteByMidCmd(CFE_SB_MsgPtr_t);
+void TO_SetRouteByMidCmd(const CFE_SB_Buffer_t* SbBufPtr);
 
 
 /******************************************************************************/
@@ -418,7 +418,7 @@ void TO_SetRouteByMidCmd(CFE_SB_MsgPtr_t);
 *   \param[in,out] g_TO_AppData TO Global Application Data
 *   \param[in] pCmdMsg Cmd of type TO_SetRouteByGroupCmd_t
 *******************************************************************************/
-void TO_SetRouteByGroupCmd(CFE_SB_MsgPtr_t);
+void TO_SetRouteByGroupCmd(const CFE_SB_Buffer_t* SbBufPtr);
 
 
 /******************************************************************************/
@@ -441,7 +441,7 @@ void TO_SetRouteByGroupCmd(CFE_SB_MsgPtr_t);
 *   \param[in,out] g_TO_AppData TO Global Application Data
 *   \param[in] pCmdMsg Cmd of type CFE_TBL_NotifyCmd_t
 *******************************************************************************/
-void TO_ManageTableCmd(CFE_SB_MsgPtr_t);
+void TO_ManageTableCmd(const CFE_SB_Buffer_t* SbBufPtr);
 
 
 /******************************************************************************/
@@ -459,7 +459,7 @@ void TO_ManageTableCmd(CFE_SB_MsgPtr_t);
 *   \param[in,out] g_TO_AppData TO Global Application Data
 *   \param[in] pCmdMsg Cmd of type TO_SetRoutePeriodCmd_t
 *******************************************************************************/
-void TO_SetRoutePeriodCmd(CFE_SB_MsgPtr_t);
+void TO_SetRoutePeriodCmd(const CFE_SB_Buffer_t* SbBufPtr);
 
 
 /******************************************************************************/
@@ -476,7 +476,7 @@ void TO_SetRoutePeriodCmd(CFE_SB_MsgPtr_t);
 *   \param[in,out] g_TO_AppData TO Global Application Data
 *   \param[in] pCmdMsg Cmd of type TO_SetWakeupTimeoutCmd_t
 *******************************************************************************/
-void TO_SetWakeupTimeoutCmd(CFE_SB_MsgPtr_t);
+void TO_SetWakeupTimeoutCmd(const CFE_SB_Buffer_t* SbBufPtr);
 
 #ifdef __cplusplus
 }

@@ -54,13 +54,13 @@ extern TO_AppData_t     g_TO_AppData;
 /* Optional Custom Commands. 
  * Call these through the TO_CustomAppCmds function in to_custom.c if desired. 
  * Add an extern prototype definition in the to_custom.c file. */
-void TO_SendDataTypePktCmd(CFE_SB_MsgPtr_t);
+void TO_SendDataTypePktCmd(const CFE_SB_Buffer_t* SbBufPtr);
 
 
 /******************************************************************************/
 /** \brief Noop Command (TO_NOOP_CC)
 *******************************************************************************/
-void TO_NoopCmd(CFE_SB_MsgPtr_t pCmdMsg)
+void TO_NoopCmd(const CFE_SB_Buffer_t* pCmdMsg)
 {
     if (TO_VerifyCmdLength(pCmdMsg, sizeof(TO_NoArgCmd_t)))
     {
@@ -79,7 +79,7 @@ void TO_NoopCmd(CFE_SB_MsgPtr_t pCmdMsg)
 /******************************************************************************/
 /** \brief Reset Command (TO_RESET_CC)
 *******************************************************************************/
-void TO_ResetCmd(CFE_SB_MsgPtr_t pCmdMsg)
+void TO_ResetCmd(const CFE_SB_Buffer_t* pCmdMsg)
 {
     if (TO_VerifyCmdLength(pCmdMsg, sizeof(TO_NoArgCmd_t)))
     {
@@ -99,7 +99,7 @@ void TO_ResetCmd(CFE_SB_MsgPtr_t pCmdMsg)
 /******************************************************************************/
 /** \brief Enable Output Command (TO_ENABLE_OUTPUT_CC)
 *******************************************************************************/
-void TO_EnableOutputCmd(CFE_SB_MsgPtr_t pCmdMsg)
+void TO_EnableOutputCmd(const CFE_SB_Buffer_t* pCmdMsg)
 {
     int32 ii = 0;
     int32 routeMask = 0;
@@ -176,7 +176,7 @@ end_of_command:
 /******************************************************************************/
 /** \brief Disable Output Command (TO_DISABLE_OUTPUT_CC)
 *******************************************************************************/
-void TO_DisableOutputCmd(CFE_SB_MsgPtr_t pCmdMsg)
+void TO_DisableOutputCmd(const CFE_SB_Buffer_t* pCmdMsg)
 {
     int32 iStatus = TO_SUCCESS;
     int32 routeMask = TO_SUCCESS;
@@ -252,7 +252,7 @@ end_of_command:
 /******************************************************************************/
 /** \brief Activate Routes Command (TO_ACTIVATE_ROUTES_CC)
 *******************************************************************************/
-void TO_ActivateRoutesCmd(CFE_SB_MsgPtr_t pCmdMsg)
+void TO_ActivateRoutesCmd(const CFE_SB_Buffer_t* pCmdMsg)
 {
     uint16 ii;
 
@@ -303,7 +303,7 @@ end_of_command:
 /******************************************************************************/
 /** \brief Deactivate Routes Command (TO_DEACTIVATE_ROUTES_CC)
 *******************************************************************************/
-void TO_DeactivateRoutesCmd(CFE_SB_MsgPtr_t pCmdMsg)
+void TO_DeactivateRoutesCmd(const CFE_SB_Buffer_t* pCmdMsg)
 {
     uint16 ii;
 
@@ -337,7 +337,7 @@ void TO_DeactivateRoutesCmd(CFE_SB_MsgPtr_t pCmdMsg)
 /******************************************************************************/
 /** \brief Pause Output Command (TO_PAUSE_OUTPUT_CC)
 *******************************************************************************/
-void TO_PauseOutputCmd(CFE_SB_MsgPtr_t pCmdMsg)
+void TO_PauseOutputCmd(const CFE_SB_Buffer_t* pCmdMsg)
 {
     if (TO_VerifyCmdLength(pCmdMsg, sizeof(TO_NoArgCmd_t)))
     {
@@ -368,7 +368,7 @@ end_of_command:
 /******************************************************************************/
 /** \brief Resume Output Command (TO_RESUME_OUTPUT_CC)
 *******************************************************************************/
-void TO_ResumeOutputCmd(CFE_SB_MsgPtr_t pCmdMsg)
+void TO_ResumeOutputCmd(const CFE_SB_Buffer_t* pCmdMsg)
 {
     if (TO_VerifyCmdLength(pCmdMsg, sizeof(TO_NoArgCmd_t)))
     {
@@ -400,7 +400,7 @@ end_of_command:
 /******************************************************************************/
 /** \brief Add a Table Entry (TO_ADD_TBL_ENTRY_CC)
 *******************************************************************************/
-void TO_AddTblEntryCmd(CFE_SB_MsgPtr_t pCmdMsg)
+void TO_AddTblEntryCmd(const CFE_SB_Buffer_t* pCmdMsg)
 {
     TO_AddTblEntryCmd_t * pCmd = (TO_AddTblEntryCmd_t *) pCmdMsg;
     TO_TableEntry_t     *pEntry = NULL;
@@ -500,7 +500,7 @@ end_of_command:
 /******************************************************************************/
 /** \brief Remove a Table Entry by MID (TO_REMOVE_TBL_ENTRY_CC)
 *******************************************************************************/
-void TO_RemoveTblEntryCmd(CFE_SB_MsgPtr_t pCmdMsg)
+void TO_RemoveTblEntryCmd(const CFE_SB_Buffer_t* pCmdMsg)
 {
     TO_MidArgCmd_t * pCmd = (TO_MidArgCmd_t *) pCmdMsg;
     TO_TableEntry_t *pEntry = NULL;
@@ -567,7 +567,7 @@ end_of_command:
 /******************************************************************************/
 /** \brief Enable a Table Entry by MID (TO_ENABLE_TBL_ENTRY_CC)
 *******************************************************************************/
-void TO_EnableTblEntryCmd(CFE_SB_MsgPtr_t pCmdMsg)
+void TO_EnableTblEntryCmd(const CFE_SB_Buffer_t* pCmdMsg)
 {
     TO_MidArgCmd_t * pCmd = (TO_MidArgCmd_t *) pCmdMsg;
     TO_TableEntry_t *pEntry = NULL;
@@ -630,7 +630,7 @@ end_of_command:
 /******************************************************************************/
 /** \brief Disable a Table Entry by MID (TO_DISABLE_TBL_ENTRY_CC)
 *******************************************************************************/
-void TO_DisableTblEntryCmd(CFE_SB_MsgPtr_t pCmdMsg)
+void TO_DisableTblEntryCmd(const CFE_SB_Buffer_t* pCmdMsg)
 {
     TO_MidArgCmd_t * pCmd = (TO_MidArgCmd_t *) pCmdMsg;
     TO_TableEntry_t * pEntry = NULL;
@@ -692,7 +692,7 @@ end_of_command:
 /******************************************************************************/
 /** \brief Enable Table Entries by Group (TO_ENABLE_GROUP_CC)
 *******************************************************************************/
-void TO_EnableGroupCmd(CFE_SB_MsgPtr_t pCmdMsg)
+void TO_EnableGroupCmd(const CFE_SB_Buffer_t* pCmdMsg)
 {
     TO_GroupArgCmd_t * pCmd = (TO_GroupArgCmd_t *) pCmdMsg;
     int32 iStatus = TO_SUCCESS;
@@ -739,7 +739,7 @@ void TO_EnableGroupCmd(CFE_SB_MsgPtr_t pCmdMsg)
 /******************************************************************************/
 /** \brief Disable Table Entries by Group (TO_DISABLE_GROUP_CC)
 *******************************************************************************/
-void TO_DisableGroupCmd(CFE_SB_MsgPtr_t pCmdMsg)
+void TO_DisableGroupCmd(const CFE_SB_Buffer_t* pCmdMsg)
 {
     TO_GroupArgCmd_t * pCmd = (TO_GroupArgCmd_t *) pCmdMsg;
     int32 iStatus = TO_SUCCESS;
@@ -787,7 +787,7 @@ void TO_DisableGroupCmd(CFE_SB_MsgPtr_t pCmdMsg)
 /******************************************************************************/
 /** \brief Enable All Used Table Entries (TO_ENABLE_ALL_CC)
 *******************************************************************************/
-void TO_EnableAllCmd(CFE_SB_MsgPtr_t pCmdMsg)
+void TO_EnableAllCmd(const CFE_SB_Buffer_t* pCmdMsg)
 {
     int32 iStatus = TO_SUCCESS;
 
@@ -818,7 +818,7 @@ void TO_EnableAllCmd(CFE_SB_MsgPtr_t pCmdMsg)
 /******************************************************************************/
 /** \brief Disable All Used Table Entries (TO_DISABLE_ALL_CC)
 *******************************************************************************/
-void TO_DisableAllCmd(CFE_SB_MsgPtr_t pCmdMsg)
+void TO_DisableAllCmd(const CFE_SB_Buffer_t* pCmdMsg)
 {
     int32 iStatus = TO_SUCCESS;
     
@@ -849,7 +849,7 @@ void TO_DisableAllCmd(CFE_SB_MsgPtr_t pCmdMsg)
 /******************************************************************************/
 /** \brief Set table entry routeMask by MID (TO_SET_ROUTE_BY_MID_CC)
 *******************************************************************************/
-void TO_SetRouteByMidCmd(CFE_SB_MsgPtr_t pCmdMsg)
+void TO_SetRouteByMidCmd(const CFE_SB_Buffer_t* pCmdMsg)
 {
     TO_SetRouteByMidCmd_t * pCmd = (TO_SetRouteByMidCmd_t *) pCmdMsg;
     TO_TableEntry_t * pEntry = NULL;
@@ -907,7 +907,7 @@ end_of_command:
 /******************************************************************************/
 /** \brief Set table entry routeMask by Group (TO_SET_ROUTE_BY_GROUP_CC)
 *******************************************************************************/
-void TO_SetRouteByGroupCmd(CFE_SB_MsgPtr_t pCmdMsg)
+void TO_SetRouteByGroupCmd(const CFE_SB_Buffer_t* pCmdMsg)
 {
     TO_SetRouteByGroupCmd_t * pCmd = (TO_SetRouteByGroupCmd_t *) pCmdMsg;
     int32 iStatus = TO_SUCCESS;
@@ -961,7 +961,7 @@ void TO_SetRouteByGroupCmd(CFE_SB_MsgPtr_t pCmdMsg)
 /******************************************************************************/
 /** \brief Manage the Table - Hook for TBL Services (TO_MANAGE_TABLE_CC)
 *******************************************************************************/
-void TO_ManageTableCmd(CFE_SB_MsgPtr_t pCmdMsg)
+void TO_ManageTableCmd(const CFE_SB_Buffer_t* pCmdMsg)
 {
     int32 iStatus = CFE_SUCCESS;
     TO_ConfigTable_t *pTable = NULL;
@@ -1077,7 +1077,7 @@ end_of_command:
 /******************************************************************************/
 /** \brief Set the route period by RouteMask (TO_SET_ROUTE_PERIOD_CC)
 *******************************************************************************/
-void TO_SetRoutePeriodCmd(CFE_SB_MsgPtr_t pCmdMsg)
+void TO_SetRoutePeriodCmd(const CFE_SB_Buffer_t* pCmdMsg)
 {
     TO_SetRoutePeriodCmd_t * pCmd = (TO_SetRoutePeriodCmd_t *) pCmdMsg;
     uint16 ii;
@@ -1147,7 +1147,7 @@ end_of_command:
 /******************************************************************************/
 /** \brief Set Wakeup Timeout (TO_SET_WAKEUP_TIMEOUT_CC)
 *******************************************************************************/
-void TO_SetWakeupTimeoutCmd(CFE_SB_MsgPtr_t pCmdMsg)
+void TO_SetWakeupTimeoutCmd(const CFE_SB_Buffer_t* pCmdMsg)
 {
     TO_SetWakeupTimeoutCmd_t * pCmd = (TO_SetWakeupTimeoutCmd_t *) pCmdMsg;
     
@@ -1195,7 +1195,7 @@ end_of_command:
  *      useful for determining byte packing / order on platform with respect
  *      to ground displays. Should only be used during development.
 *******************************************************************************/
-void TO_SendDataTypePktCmd(CFE_SB_MsgPtr_t pCmdMsg)
+void TO_SendDataTypePktCmd(const CFE_SB_Buffer_t* pCmdMsg)
 {
     TO_TypeDefPacket_t testPacket;
     int16           i;

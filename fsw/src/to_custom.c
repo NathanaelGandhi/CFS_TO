@@ -77,7 +77,7 @@ static TO_CustomData_t g_TO_CustomData;
 /*
 ** Local Function Definitions
 */
-extern void TO_SendDataTypePktCmd(CFE_SB_MsgPtr_t);
+extern void TO_SendDataTypePktCmd(const CFE_SB_Buffer_t* SbBufPtr);
 
 /*******************************************************************************
 ** Custom Application Functions 

@@ -577,7 +577,7 @@ end_of_function:
 int32 TO_RcvMsg(int32 iBlocking)
 {
     int32           iStatus=CFE_SUCCESS;
-    CFE_SB_MsgPtr_t pMsg=NULL;
+    CFE_SB_Buffer_t* pMsg=NULL;
     CFE_SB_MsgId_t  MsgId;
 
     /* Wait for WakeUp messages from scheduler */
@@ -666,7 +666,7 @@ void TO_ProcessTlmPipes(void)
 *******************************************************************************/
 void TO_ProcessNewData(TO_TlmPipe_t *pTlmPipe, uint16 usRouteId)
 {
-    CFE_SB_MsgPtr_t         pTlmMsg=NULL;
+    CFE_SB_Buffer_t*         pTlmMsg=NULL;
     CFE_SB_MsgId_t          usMsgId = 0;
     bool                  bGotNewMsg=true;
     CFE_MSG_Size_t                   size = 0;
@@ -780,7 +780,7 @@ end_of_function:
 *******************************************************************************/
 void TO_ProcessNewCmds(void)
 {
-    CFE_SB_MsgPtr_t pCmdMsg=NULL;
+    CFE_SB_Buffer_t* pCmdMsg=NULL;
     CFE_SB_MsgId_t  usMsgId;
     bool          bGotNewMsg=true;
 
@@ -818,7 +818,7 @@ void TO_ProcessNewCmds(void)
 /******************************************************************************/
 /** \brief Process New App Commands
 *******************************************************************************/
-void TO_ProcessNewAppCmds(CFE_SB_MsgPtr_t pMsg)
+void TO_ProcessNewAppCmds(const CFE_SB_Buffer_t* pMsg)
 {
     int32 iStatus = TO_SUCCESS;
     CFE_MSG_FcnCode_t  uiCmdCode = 0;
