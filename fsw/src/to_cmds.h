@@ -38,32 +38,32 @@ extern "C" {
 *******************************************************************************/
 typedef struct
 {
-    uint8           ucCmdHeader[CFE_SB_CMD_HDR_SIZE];
+    CFE_MSG_TelemetryHeader_t TlmHeader;
 } TO_NoArgCmd_t;
 
 
 typedef struct
 {
-    uint8           ucCmdHeader[CFE_SB_CMD_HDR_SIZE];
+    CFE_MSG_TelemetryHeader_t TlmHeader;
     CFE_SB_MsgId_t  usMsgId;      /**< Msg Id parameter */
 } TO_MidArgCmd_t;
 
 typedef struct
 {
-    uint8           ucCmdHeader[CFE_SB_CMD_HDR_SIZE];
+    CFE_MSG_TelemetryHeader_t TlmHeader;
     uint16          usRouteMask;  /**< Route Mask   */
 } TO_RouteMaskArgCmd_t;
 
 
 typedef struct
 {
-    uint8           ucCmdHeader[CFE_SB_CMD_HDR_SIZE];
+    CFE_MSG_TelemetryHeader_t TlmHeader;
     uint32          uiGroupData;  /**< GroupData for entry selection */
 } TO_GroupArgCmd_t;
 
 typedef struct
 {
-    uint8           ucCmdHeader[CFE_SB_CMD_HDR_SIZE];
+    CFE_MSG_TelemetryHeader_t TlmHeader;
     CFE_SB_MsgId_t  usMsgId;      /**< Message ID (must be unique)      */
     CFE_SB_Qos_t    qos;          /**< Quality of Service flag          */
     uint16          usMsgLimit;   /**< Max Num. of this Msgs in pipe    */
@@ -75,14 +75,14 @@ typedef struct
 
 typedef struct
 {
-    uint8           ucCmdHeader[CFE_SB_CMD_HDR_SIZE];
+    CFE_MSG_TelemetryHeader_t TlmHeader;
     CFE_SB_MsgId_t  usMsgId;      /**< MsgId parameter */
     uint16          usRouteMask;  /**< RouteMask to set table entry */
 } TO_SetRouteByMidCmd_t;
 
 typedef struct
 {
-    uint8           ucCmdHeader[CFE_SB_CMD_HDR_SIZE];
+    CFE_MSG_TelemetryHeader_t TlmHeader;
     uint32          uiGroupData;  /**< GroupData for entry selection  */
     uint16          usRouteMask;  /**< RouteMask to set table entries */
     uint16          spare;        /**< Padding */
@@ -90,21 +90,21 @@ typedef struct
 
 typedef struct
 {
-    uint8           ucCmdHeader[CFE_SB_CMD_HDR_SIZE];
+    CFE_MSG_TelemetryHeader_t TlmHeader;
     uint16          usRouteMask;   /**< RouteMask to set table entries */
     uint16          usWakePeriod;  /**< Modulus of TO Wakeup rate      */
 } TO_SetRoutePeriodCmd_t;
 
 typedef struct
 {
-    uint8           ucCmdHeader[CFE_SB_CMD_HDR_SIZE];
+    CFE_MSG_TelemetryHeader_t TlmHeader;
     uint32          uiWakeupTimeout;    /**< New wakeup timeout in ms */
 } TO_SetWakeupTimeoutCmd_t;
 
 
 typedef struct
 {
-    uint8              TlmHeader[CFE_SB_TLM_HDR_SIZE];
+    CFE_MSG_TelemetryHeader_t TlmHeader;
     uint16             synch;
     
     uint16             bit1:1;

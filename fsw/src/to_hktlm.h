@@ -33,7 +33,7 @@ extern "C" {
 
 typedef struct
 {
-    uint8   ucTlmHeader[CFE_SB_TLM_HDR_SIZE];
+    CFE_MSG_TelemetryHeader_t TlmHeader;
     uint16  usCmdCnt;           /**< Count of all commands received           */
     uint16  usCmdErrCnt;        /**< Count of command errors                  */
     uint16  usMsgSubCnt;        /**< Count of subscribed messages by all 

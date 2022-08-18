@@ -62,12 +62,12 @@ typedef struct
 /*************** Telemetry **************/
 typedef struct
 {
-    uint8   ucTlmHeader[CFE_SB_TLM_HDR_SIZE];
+    CFE_MSG_TelemetryHeader_t TlmHeader;
 } TO_InData_t;
 
 typedef struct
 {
-    uint8   ucTlmHeader[CFE_SB_TLM_HDR_SIZE];
+    CFE_MSG_TelemetryHeader_t TlmHeader;
     uint32  uiCounter;
 } TO_OutData_t;
 
