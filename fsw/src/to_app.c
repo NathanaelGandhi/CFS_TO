@@ -934,7 +934,7 @@ void TO_ProcessNewAppCmds(CFE_SB_MsgPtr_t pMsg)
 void TO_ReportHousekeeping(void)
 {
     CFE_SB_TimeStampMsg((CFE_SB_MsgPtr_t)&g_TO_AppData.HkTlm);
-    CFE_SB_SendMsg((CFE_SB_MsgPtr_t)&g_TO_AppData.HkTlm);
+    CFE_SB_TransmitMsg(&g_TO_AppData.HkTlm.ucTlmHeader.Msg, true);
 }
     
 /******************************************************************************/
@@ -943,7 +943,7 @@ void TO_ReportHousekeeping(void)
 void TO_SendOutData(void)
 {
     CFE_SB_TimeStampMsg((CFE_SB_MsgPtr_t)&g_TO_AppData.OutData);
-    CFE_SB_SendMsg((CFE_SB_MsgPtr_t)&g_TO_AppData.OutData);
+    CFE_SB_TransmitMsg(&g_TO_AppData.OutData.ucTlmHeader.Msg, true);
 }
 
 /******************************************************************************/

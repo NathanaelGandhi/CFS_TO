@@ -1247,7 +1247,7 @@ void TO_SendDataTypePktCmd(CFE_SB_MsgPtr_t pCmdMsg)
             testPacket.str[i] = string_variable[i];
         }
 
-        CFE_SB_SendMsg((CFE_SB_Msg_t *)&testPacket);
+        CFE_SB_TransmitMsg(&testPacket.TlmHeader.Msg, true);
     }
 }
 
