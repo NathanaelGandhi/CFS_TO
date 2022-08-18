@@ -934,7 +934,7 @@ void TO_ProcessNewAppCmds(const CFE_SB_Buffer_t* pMsg)
 void TO_ReportHousekeeping(void)
 {
     CFE_SB_TimeStampMsg(&g_TO_AppData.HkTlm.TlmHeader.Msg);
-    CFE_SB_TransmitMsg(&g_TO_AppData.HkTlm.ucTlmHeader.Msg, true);
+    CFE_SB_TransmitMsg(&g_TO_AppData.HkTlm.TlmHeader.Msg, true);
 }
     
 /******************************************************************************/
@@ -943,7 +943,7 @@ void TO_ReportHousekeeping(void)
 void TO_SendOutData(void)
 {
     CFE_SB_TimeStampMsg(&g_TO_AppData.OutData.TlmHeader.Msg);
-    CFE_SB_TransmitMsg(&g_TO_AppData.OutData.ucTlmHeader.Msg, true);
+    CFE_SB_TransmitMsg(&g_TO_AppData.OutData.TlmHeader.Msg, true);
 }
 
 /******************************************************************************/
