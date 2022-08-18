@@ -821,11 +821,11 @@ void TO_ProcessNewCmds(void)
 void TO_ProcessNewAppCmds(CFE_SB_MsgPtr_t pMsg)
 {
     int32 iStatus = TO_SUCCESS;
-    uint32  uiCmdCode = 0;
+    CFE_MSG_FcnCode_t  uiCmdCode = 0;
     
     if (pMsg != NULL)
     {
-        uiCmdCode = CFE_SB_GetCmdCode(pMsg);
+        CFE_MSG_GetFcnCode(&pMsg->Msg, &uiCmdCode);
         switch (uiCmdCode)
         {
             case TO_NOOP_CC:

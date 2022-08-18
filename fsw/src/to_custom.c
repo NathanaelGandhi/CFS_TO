@@ -120,7 +120,7 @@ end_of_function:
 int32 TO_CustomAppCmds(CFE_SB_Msg_t* pMsg)
 {
     int32 iStatus = TO_SUCCESS;
-    uint32 uiCmdCode = CFE_SB_GetCmdCode(pMsg);
+    uint32 uiCmdCode = CFE_MSG_GetFcnCode(pMsg);
     switch (uiCmdCode)
     {
         case TO_SEND_DATA_TYPE_CC:

@@ -997,7 +997,7 @@ int32   TO_CustomInit(void);
 *   \see 
 *       #TO_ProcessNewAppCmds
 *       #TO_VerifyCmdLength
-*       #CFE_SB_GetCmdCode
+*       #CFE_MSG_GetFcnCode
 *******************************************************************************/
 int32   TO_CustomAppCmds(CFE_SB_MsgPtr_t pCmdMsg);
 
