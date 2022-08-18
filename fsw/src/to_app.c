@@ -104,7 +104,7 @@ void TO_AppMain(void)
     /* Perform Application initializations */
     if (TO_AppInit() != CFE_SUCCESS)
     {
-        g_TO_AppData.uiRunStatus = CFE_ES_APP_ERROR;
+        g_TO_AppData.uiRunStatus = CFE_ES_RunStatus_APP_ERROR;
     }
 
     /* Application Main Loop. Call CFE_ES_RunLoop() to check for changes in the
@@ -136,7 +136,7 @@ int32 TO_AppInit(void)
     /* Start as disabled. */
     g_TO_AppData.usOutputEnabled = 0;
     g_TO_AppData.usOutputActive = 0;
-    g_TO_AppData.uiRunStatus = CFE_ES_APP_RUN;
+    g_TO_AppData.uiRunStatus = CFE_ES_RunStatus_APP_RUN;
 
     /* Init Events */
     if (TO_InitEvent() != CFE_SUCCESS)
@@ -625,7 +625,7 @@ int32 TO_RcvMsg(int32 iBlocking)
         CFE_EVS_SendEvent(TO_PIPE_ERR_EID, CFE_EVS_EventType_ERROR,
                          "TO: SB pipe read error (0x%08x), app will exit", 
                          iStatus);
-        g_TO_AppData.uiRunStatus= CFE_ES_APP_ERROR;
+        g_TO_AppData.uiRunStatus= CFE_ES_RunStatus_APP_ERROR;
     }
     
     return (iStatus);
