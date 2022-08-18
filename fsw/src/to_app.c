@@ -588,7 +588,7 @@ int32 TO_RcvMsg(int32 iBlocking)
     
     if (iStatus == CFE_SUCCESS)
     {
-        MsgId = CFE_SB_GetMsgId(pMsg);
+        CFE_MSG_GetMsgId(&pMsg->Msg, &MsgId);
         switch (MsgId)
         {
             case TO_WAKEUP_MID:
@@ -708,7 +708,7 @@ void TO_ProcessNewData(TO_TlmPipe_t *pTlmPipe, uint16 usRouteId)
             /* Process if output is enabled and active. Otherwise, drop. */
             if (g_TO_AppData.usOutputEnabled && g_TO_AppData.usOutputActive)
             {
-                usMsgId = CFE_SB_GetMsgId(pTlmMsg);
+                CFE_MSG_GetMsgId(&pTlmMsg->Msg, &usMsgId);
                 iTblIdx = TO_FindTableIndex(g_TO_AppData.pConfigTable, usMsgId);
 
                 if (iTblIdx == TO_NO_MATCH)
@@ -789,7 +789,7 @@ void TO_ProcessNewCmds(void)
         if (CFE_SB_ReceiveBuffer(&pCmdMsg, g_TO_AppData.CmdPipeId, CFE_SB_POLL) == 
             CFE_SUCCESS)
         {
-            usMsgId = CFE_SB_GetMsgId(pCmdMsg);
+            CFE_MSG_GetMsgId(&pCmdMsg->Msg, &usMsgId);
             switch (usMsgId)
             {
                 case TO_APP_CMD_MID:

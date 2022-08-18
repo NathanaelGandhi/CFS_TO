@@ -344,7 +344,7 @@ bool  TO_VerifyCmdLength(CFE_SB_MsgPtr_t pMsg,
         }
         else
         {
-            CFE_SB_MsgId_t MsgId = CFE_SB_GetMsgId(pMsg);
+            CFE_SB_MsgId_t MsgId = CFE_MSG_GetMsgId(pMsg);
             uint16 usCmdCode = CFE_SB_GetCmdCode(pMsg);
 
             CFE_EVS_SendEvent(TO_MSGLEN_ERR_EID, CFE_EVS_EventType_ERROR,
