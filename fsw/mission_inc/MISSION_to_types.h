@@ -46,7 +46,7 @@ extern "C" {
 /* Define enable / disable commands */
 typedef struct
 {
-   uint8	CmdHeader[CFE_SB_CMD_HDR_SIZE];
+   CFE_MSG_CommandHeader_t CmdHeader;
    char     cDestIp[TO_MAX_IP_STRING_SIZE];   /* Destination IP */	
    uint16   usDestPort;                       /* Destination PORT */ 
 } TO_EnableOutputCmd_t;
@@ -54,7 +54,7 @@ typedef struct
 
 typedef struct
 {
-   uint8	CmdHeader[CFE_SB_CMD_HDR_SIZE];
+   CFE_MSG_CommandHeader_t CmdHeader;
 } TO_DisableOutputCmd_t;
 
 

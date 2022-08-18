@@ -45,14 +45,14 @@ extern "C" {
 /* Define enable / disable commands. */ 
 typedef struct
 {
-   uint8	CmdHeader[CFE_SB_CMD_HDR_SIZE];
+   CFE_MSG_CommandHeader_t CmdHeader;
    uint16   usRouteMask;                      /**< Route Mask to enable    */
 } TO_EnableOutputCmd_t;
 
 
 typedef struct
 {
-   uint8	CmdHeader[CFE_SB_CMD_HDR_SIZE];
+   CFE_MSG_CommandHeader_t CmdHeader;
    uint16   usRouteMask;                      /**< Route Mask to enable    */
 } TO_DisableOutputCmd_t;
 
