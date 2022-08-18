@@ -422,7 +422,7 @@ int32 TO_SubscribeMsg(TO_TableEntry_t *pEntry)
         /* Subscribe the message to the current route pipe if it exists. */
         if (pEntry->usRouteMask & (1 << jj) && g_TO_AppData.routes[jj].usExists)
         {
-            iStatus = CFE_SB_SubscribeEx(pEntry->usMsgId, 
+            iStatus = CFE_SB_SubscribeEx(CFE_SB_ValueToMsgId(pEntry->usMsgId), 
                                          pTlmPipe->cfePipeId,
                                          pEntry->qos, 
                                          pEntry->usMsgLimit);

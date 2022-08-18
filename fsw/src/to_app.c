@@ -392,7 +392,7 @@ int32 TO_InitPipe(void)
                                  g_TO_AppData.cSchPipeName);
     if (iStatus == CFE_SUCCESS)
     {
-        CFE_SB_Subscribe(TO_WAKEUP_MID, g_TO_AppData.SchPipeId);
+        CFE_SB_Subscribe(CFE_SB_ValueToMsgId(TO_WAKEUP_MID), g_TO_AppData.SchPipeId);
     }
     else
     {
@@ -413,8 +413,8 @@ int32 TO_InitPipe(void)
                                  g_TO_AppData.cCmdPipeName);
     if (iStatus == CFE_SUCCESS)
     {
-        CFE_SB_Subscribe(TO_APP_CMD_MID, g_TO_AppData.CmdPipeId);
-        CFE_SB_Subscribe(TO_SEND_HK_MID, g_TO_AppData.CmdPipeId);
+        CFE_SB_Subscribe(CFE_SB_ValueToMsgId(TO_APP_CMD_MID), g_TO_AppData.CmdPipeId);
+        CFE_SB_Subscribe(CFE_SB_ValueToMsgId(TO_SEND_HK_MID), g_TO_AppData.CmdPipeId);
     }
     else
     {
