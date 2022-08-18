@@ -202,7 +202,7 @@ int32 TO_InitEvent(void)
 
     /* Register the table with CFE */
     iStatus = CFE_EVS_Register(g_TO_AppData.EventTbl,
-                               TO_EVT_CNT, CFE_EVS_BINARY_FILTER);
+                               TO_EVT_CNT, CFE_EVS_EventFilter_BINARY);
     if (iStatus != CFE_SUCCESS)
     {
         CFE_ES_WriteToSysLog("TO - Failed to register with EVS (0x%08X)\n", 
