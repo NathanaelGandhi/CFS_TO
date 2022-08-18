@@ -88,15 +88,6 @@ TO_AppData_t  g_TO_AppData;
 void TO_AppMain(void)
 {
     int32  iStatus=CFE_SUCCESS;
-    
-    /* Register the Application with Executive Services */
-    iStatus = CFE_ES_RegisterApp();
-    if (iStatus != CFE_SUCCESS)
-    {
-        CFE_ES_WriteToSysLog("TO - Failed to register the app (0x%08X)\n", 
-                             iStatus);
-        goto TO_AppMain_Exit_Tag;
-    }
 
     /* Performance Log Entry stamp - #1 */
     CFE_ES_PerfLogEntry(TO_MAIN_TASK_PERF_ID);
@@ -121,7 +112,6 @@ void TO_AppMain(void)
     /* Performance Log Exit stamp - #2 */
     CFE_ES_PerfLogExit(TO_MAIN_TASK_PERF_ID);
     
-TO_AppMain_Exit_Tag:
     /* Exit the application */
     CFE_ES_ExitApp(g_TO_AppData.uiRunStatus);
 } 
