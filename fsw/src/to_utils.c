@@ -323,12 +323,12 @@ CFE_SB_MsgId_t TO_GetMessageID(int32 tblIdx)
 *******************************************************************************/
 bool TO_VerifyCmdLength(const CFE_SB_Buffer_t *pMsg, uint16 usExpectedLen)
 {
-    bool   bResult  = false;
-    uint16 usMsgLen = 0;
+    bool           bResult  = false;
+    CFE_MSG_Size_t usMsgLen = 0;
 
     if (pMsg != NULL)
     {
-        usMsgLen = CFE_MSG_GetSize(pMsg);
+        CFE_MSG_GetSize(&pMsg->Msg, &usMsgLen);
 
         if (usExpectedLen == usMsgLen)
         {
@@ -336,13 +336,15 @@ bool TO_VerifyCmdLength(const CFE_SB_Buffer_t *pMsg, uint16 usExpectedLen)
         }
         else
         {
-            CFE_SB_MsgId_t MsgId     = CFE_MSG_GetMsgId(pMsg);
-            uint16         usCmdCode = CFE_MSG_GetFcnCode(pMsg);
+            CFE_SB_MsgId_t    MsgId     = CFE_SB_INVALID_MSG_ID;
+            CFE_MSG_FcnCode_t usCmdCode = 0;
+            CFE_MSG_GetMsgId(&pMsg->Msg, &MsgId);
+            CFE_MSG_GetFcnCode(&pMsg->Msg, &usCmdCode);
 
             CFE_EVS_SendEvent(TO_MSGLEN_ERR_EID, CFE_EVS_EventType_ERROR,
                               "Rcvd invalid msgLen: usMsgId=0x%04X, "
                               "cmdCode=%d, msgLen=%d, expectedLen=%d",
-                              MsgId, usCmdCode, usMsgLen, usExpectedLen);
+                              MsgId, usCmdCode, (uint16)usMsgLen, usExpectedLen);
 
             g_TO_AppData.HkTlm.usCmdErrCnt++;
         }

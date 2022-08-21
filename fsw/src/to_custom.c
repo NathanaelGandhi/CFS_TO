@@ -119,8 +119,11 @@ end_of_function:
 *******************************************************************************/
 int32 TO_CustomAppCmds(const CFE_SB_Buffer_t *pMsg)
 {
-    int32  iStatus   = TO_SUCCESS;
-    uint32 uiCmdCode = CFE_MSG_GetFcnCode(pMsg);
+    int32             iStatus   = TO_SUCCESS;
+    CFE_MSG_FcnCode_t uiCmdCode = 0;
+
+    // TODO Potentially modify this to return real status code from getFcnCode instead of just breaking on -1 -LM
+    CFE_MSG_GetFcnCode(&pMsg->Msg, &uiCmdCode);
     switch (uiCmdCode)
     {
         case TO_SEND_DATA_TYPE_CC:
