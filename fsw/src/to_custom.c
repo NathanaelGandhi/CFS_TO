@@ -117,7 +117,7 @@ end_of_function:
 /******************************************************************************/
 /** \brief Process of custom app commands
 *******************************************************************************/
-int32 TO_CustomAppCmds(CFE_SB_Msg_t *pMsg)
+int32 TO_CustomAppCmds(const CFE_SB_Buffer_t *pMsg)
 {
     int32  iStatus   = TO_SUCCESS;
     uint32 uiCmdCode = CFE_MSG_GetFcnCode(pMsg);
@@ -138,7 +138,7 @@ int32 TO_CustomAppCmds(CFE_SB_Msg_t *pMsg)
 /******************************************************************************/
 /** \brief Process of output telemetry
 *******************************************************************************/
-int32 TO_CustomProcessData(CFE_SB_Msg_t *pMsg, int32 size, int32 iTblIdx, uint16 usRouteId)
+int32 TO_CustomProcessData(const CFE_SB_Buffer_t *pMsg, int32 size, int32 iTblIdx, uint16 usRouteId)
 {
     int32 iStatus = 0;
 
@@ -177,7 +177,7 @@ void TO_CustomCleanup(void)
 /******************************************************************************/
 /** \brief Enable Output Command Response
 *******************************************************************************/
-int32 TO_CustomEnableOutputCmd(CFE_SB_Msg_t *pCmdMsg)
+int32 TO_CustomEnableOutputCmd(const CFE_SB_Buffer_t *pCmdMsg)
 {
     int32  iStatus   = IO_TRANS_UDP_NO_ERROR;
     int32  routeMask = TO_ERROR;
@@ -214,7 +214,7 @@ end_of_function:
 /******************************************************************************/
 /** \brief Disable Output Command Response
 *******************************************************************************/
-int32 TO_CustomDisableOutputCmd(CFE_SB_Msg_t *pCmdMsg)
+int32 TO_CustomDisableOutputCmd(const CFE_SB_Buffer_t *pCmdMsg)
 {
     /* Disable */
     g_TO_AppData.usOutputEnabled = 0;
