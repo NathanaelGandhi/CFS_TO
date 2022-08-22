@@ -47,6 +47,7 @@
 
 #include "to_app.h"
 #include "ci_msgids.h"
+#include "cfe_msgids.h"
 
 /*
 ** Local Defines
@@ -104,7 +105,9 @@ int32 TO_CustomInit(void)
     /* Set Critical Message Ids which must always be in config table. */
     g_TO_AppData.criticalMid[0] = TO_HK_TLM_MID;
     g_TO_AppData.criticalMid[1] = CI_HK_TLM_MID;
-    g_TO_AppData.criticalMid[2] = CFE_EVS_EVENT_MSG_MID;
+    // TODO TO_LAB has this as LONG_EVENT so I am taking that in the interest of expedience. This could also be
+    // CFE_EVS_SHORT_EVENT_MSG_MID or something totally different... -LM
+    g_TO_AppData.criticalMid[2] = CFE_EVS_LONG_EVENT_MSG_MID;
 
     /* Route 0: Udp. Linked to CF Channel Index 0. */
     g_TO_AppData.routes[0].usExists   = 1;
