@@ -21,8 +21,12 @@ aux_source_directory(fsw/src APP_SRC_FILES)
 # Create the app module
 add_cfe_app(to ${APP_SRC_FILES})
 
-if (COMMAND add_cfe_tables)
-    include_directories(fsw/tables)
-    aux_source_directory(fsw/tables APP_TBL_FILES)
-    add_cfe_tables(to fsw/tables/to_config.c)
-endif(COMMAND add_cfe_tables)
+    
+include_directories(fsw/tables)
+
+set(APP_TBL_FILES
+  fsw/tables/to_config.c
+  fsw/tables/to_config_2.c
+)
+
+add_cfe_tables(to fsw/tables/to_config.c)

@@ -45,28 +45,28 @@ extern "C" {
 /* Define enable / disable commands. */ 
 typedef struct
 {
-   uint8	CmdHeader[CFE_SB_CMD_HDR_SIZE];
+   CFE_MSG_CommandHeader_t CmdHeader;
    uint16   usRouteMask;                      /**< Route Mask to enable    */
 } TO_EnableOutputCmd_t;
 
 
 typedef struct
 {
-   uint8	CmdHeader[CFE_SB_CMD_HDR_SIZE];
+   CFE_MSG_CommandHeader_t CmdHeader;
    uint16   usRouteMask;                      /**< Route Mask to enable    */
 } TO_DisableOutputCmd_t;
 
 
 typedef struct
 {
-    uint8   ucTlmHeader[CFE_SB_TLM_HDR_SIZE];
+    CFE_MSG_TelemetryHeader_t TlmHeader;
     uint32  uiCounter;
 } TO_OutData_t;
 
 
 typedef struct
 {
-    uint8   ucTlmHeader[CFE_SB_TLM_HDR_SIZE];
+    CFE_MSG_TelemetryHeader_t TlmHeader;
     uint16  usCmdCnt;           /**< Count of all commands received           */
     uint16  usCmdErrCnt;        /**< Count of command errors                  */
     uint16  usMsgSubCnt;        /**< Count of subscribed messages by all 

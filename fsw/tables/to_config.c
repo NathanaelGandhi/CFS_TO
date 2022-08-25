@@ -56,155 +56,159 @@ extern "C" {
 #include "ci_msgids.h"
 #include "cf_msgids.h"
 #include "sch_msgids.h"
-#include "hs_msgids.h"
+// #include "hs_msgids.h"
 #include "hk_msgids.h"
 #include "sch_msgids.h"
-
 
 /*
 ** Local Defines
 */
 
-
 /*
 ** Local Structure Declarations
 */
-
-static CFE_TBL_FileDef_t CFE_TBL_FileDef =
-{
-    "to_ConfigTable", "TO.to_config", "TO config table",
-    "to_config.tbl", sizeof(TO_ConfigTable_t)
-};
-
 /*
 ** Default TO iLoad table data
 */
 
-TO_ConfigTable_t to_ConfigTable =
-{
-   {
-       /* 0 - 9 */
-       {CF_CONFIG_TLM_MID,            {0,0},  1,   0xffff,     TO_GROUP_CFE | TO_MGROUP_ONE, 0,1},
-       {CF_HK_TLM_MID,                {0,0},  1,   0xffff,     TO_GROUP_CFE | TO_MGROUP_ONE, 0,1},
-       {CF_SPACE_TO_GND_PDU_MID,      {0,0},  32,  0xffff,     TO_GROUP_CFE | TO_MGROUP_ONE, 0,1},
-       {CF_TRANS_TLM_MID,             {0,0},  1,   0xffff,     TO_GROUP_CFE | TO_MGROUP_ONE, 0,1},
-       {CFE_ES_APP_TLM_MID,           {0,0},  1,   0xffff,     TO_GROUP_CFE | TO_MGROUP_ONE, 0,1},
-       {CFE_ES_HK_TLM_MID,            {0,0},  1,   0xffff,     TO_GROUP_CFE | TO_MGROUP_ONE, 0,1},
-       {CFE_ES_MEMSTATS_TLM_MID,      {0,0},  1,   0xffff,     TO_GROUP_CFE | TO_MGROUP_ONE, 0,1},
-       {CFE_ES_SHELL_TLM_MID,         {0,0},  32,  0xffff,     TO_GROUP_CFE | TO_MGROUP_ONE, 0,1},
-       {CFE_EVS_EVENT_MSG_MID,        {0,0},  32,  0xffff,     TO_GROUP_CFE | TO_MGROUP_ONE, 0,1},
-       {CFE_EVS_HK_TLM_MID,           {0,0},  1,   0xffff,     TO_GROUP_CFE | TO_MGROUP_ONE, 0,1},
-                                                         
-       /* 10 - 19 */                                     
-       {CFE_SB_ALLSUBS_TLM_MID,       {0,0},  1,   0xffff,     TO_GROUP_CFE | TO_MGROUP_ONE, 0,1},
-       {CFE_SB_HK_TLM_MID,            {0,0},  1,   0xffff,     TO_GROUP_CFE | TO_MGROUP_ONE, 0,1},
-       {CFE_SB_ONESUB_TLM_MID,        {0,0},  1,   0xffff,     TO_GROUP_CFE | TO_MGROUP_ONE, 0,1},
-       {CFE_SB_STATS_TLM_MID,         {0,0},  1,   0xffff,     TO_GROUP_CFE | TO_MGROUP_ONE, 0,1},
-       {CFE_TBL_HK_TLM_MID,           {0,0},  1,   0xffff,     TO_GROUP_CFE | TO_MGROUP_ONE, 0,1},
-       {CFE_TBL_REG_TLM_MID,          {0,0},  1,   0xffff,     TO_GROUP_CFE | TO_MGROUP_ONE, 0,1},
-       {CFE_TIME_DIAG_TLM_MID,        {0,0},  1,   0xffff,     TO_GROUP_CFE | TO_MGROUP_ONE, 0,1},
-       {CFE_TIME_HK_TLM_MID,          {0,0},  1,   0xffff,     TO_GROUP_CFE | TO_MGROUP_ONE, 0,1},
-       {TO_HK_TLM_MID,                {0,0},  1,   0xffff,     TO_GROUP_APP | TO_MGROUP_ONE, 0,1},
-       {HS_HK_TLM_MID,                {0,0},  1,   0xffff,     TO_GROUP_APP | TO_MGROUP_ONE, 0,1},
-                                                         
-       /* 20 - 29 */                                     
-       {SCH_DIAG_TLM_MID,             {0,0},  1,   0xffff,     TO_GROUP_APP | TO_MGROUP_ONE, 0,1},
-       {SCH_HK_TLM_MID,               {0,0},  1,   0xffff,     TO_GROUP_APP | TO_MGROUP_ONE, 0,1},
-       {HK_HK_TLM_MID,                {0,0},  1,   0xffff,     TO_GROUP_APP | TO_MGROUP_ONE, 0,1},
-       {CI_HK_TLM_MID,                {0,0},  1,   0xffff,     TO_GROUP_APP | TO_MGROUP_ONE, 0,1},
-       {TO_DATA_TYPE_MID,             {0,0},  1,   0xffff,     TO_GROUP_APP | TO_MGROUP_ONE, 0,1},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       
-       
-       /* 30 - 39 */
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
+TO_ConfigTable_t to_ConfigTable = {
+    {/* 0 - 9 */
+     {CF_CONFIG_TLM_MID, {0, 0}, 1, 0xffff, TO_GROUP_CFE | TO_MGROUP_ONE, 0, 1},
+     {CF_HK_TLM_MID, {0, 0}, 1, 0xffff, TO_GROUP_CFE | TO_MGROUP_ONE, 0, 1},
+     //  TODO I dont think this functionality exists with the update to CF 3.0.0. If I am interpreting the statement
+     //  "Much smaller code footprint. CF 3.0 is light-weight flight-only app. It does not provide any ground engine
+     //  support." correctly, then this cna be commented out and not used. - LM
+     //  {CF_SPACE_TO_GND_PDU_MID, {0, 0}, 32, 0xffff, TO_GROUP_CFE | TO_MGROUP_ONE, 0, 1},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
 
-       /* 40 - 49 */
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
+     // TODO I dont think there are notes about this MID removal. It could be related to not supporting ground stations
+     // anymore. making unused for now - LM
+     //  {CF_TRANS_TLM_MID, {0, 0}, 1, 0xffff, TO_GROUP_CFE | TO_MGROUP_ONE, 0, 1},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
 
-       /* 50 - 59 */
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
+     {CFE_ES_APP_TLM_MID, {0, 0}, 1, 0xffff, TO_GROUP_CFE | TO_MGROUP_ONE, 0, 1},
+     {CFE_ES_HK_TLM_MID, {0, 0}, 1, 0xffff, TO_GROUP_CFE | TO_MGROUP_ONE, 0, 1},
+     {CFE_ES_MEMSTATS_TLM_MID, {0, 0}, 1, 0xffff, TO_GROUP_CFE | TO_MGROUP_ONE, 0, 1},
+     //  This has been deprecated according to issue nasa/to_lab#54. replacing with unsused for now until we can verify
+     //  a replacement if there is one -LM
+     // {CFE_ES_SHELL_TLM_MID, {0, 0}, 32, 0xffff, TO_GROUP_CFE | TO_MGROUP_ONE, 0, 1},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     // TODO TO_LAB has this as LONG_EVENT so I am taking that in the interest of expedience. This could also be
+     // CFE_EVS_SHORT_EVENT_MSG_MID or something totally different... -LM
+     // {CFE_EVS_EVENT_MSG_MID, {0, 0}, 32, 0xffff, TO_GROUP_CFE | TO_MGROUP_ONE, 0, 1},
+     {CFE_EVS_LONG_EVENT_MSG_MID, {0, 0}, 32, 0xffff, TO_GROUP_CFE | TO_MGROUP_ONE, 0, 1},
+     {CFE_EVS_HK_TLM_MID, {0, 0}, 1, 0xffff, TO_GROUP_CFE | TO_MGROUP_ONE, 0, 1},
 
-       /* 60 - 69 */
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
+     /* 10 - 19 */
+     {CFE_SB_ALLSUBS_TLM_MID, {0, 0}, 1, 0xffff, TO_GROUP_CFE | TO_MGROUP_ONE, 0, 1},
+     {CFE_SB_HK_TLM_MID, {0, 0}, 1, 0xffff, TO_GROUP_CFE | TO_MGROUP_ONE, 0, 1},
+     {CFE_SB_ONESUB_TLM_MID, {0, 0}, 1, 0xffff, TO_GROUP_CFE | TO_MGROUP_ONE, 0, 1},
+     {CFE_SB_STATS_TLM_MID, {0, 0}, 1, 0xffff, TO_GROUP_CFE | TO_MGROUP_ONE, 0, 1},
+     {CFE_TBL_HK_TLM_MID, {0, 0}, 1, 0xffff, TO_GROUP_CFE | TO_MGROUP_ONE, 0, 1},
+     {CFE_TBL_REG_TLM_MID, {0, 0}, 1, 0xffff, TO_GROUP_CFE | TO_MGROUP_ONE, 0, 1},
+     {CFE_TIME_DIAG_TLM_MID, {0, 0}, 1, 0xffff, TO_GROUP_CFE | TO_MGROUP_ONE, 0, 1},
+     {CFE_TIME_HK_TLM_MID, {0, 0}, 1, 0xffff, TO_GROUP_CFE | TO_MGROUP_ONE, 0, 1},
+     {TO_HK_TLM_MID, {0, 0}, 1, 0xffff, TO_GROUP_APP | TO_MGROUP_ONE, 0, 1},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     // {HS_HK_TLM_MID, {0, 0}, 1, 0xffff, TO_GROUP_APP | TO_MGROUP_ONE, 0, 1},
 
-       /* 70 - 79 */
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
+     /* 20 - 29 */
+     {SCH_DIAG_TLM_MID, {0, 0}, 1, 0xffff, TO_GROUP_APP | TO_MGROUP_ONE, 0, 1},
+     {SCH_HK_TLM_MID, {0, 0}, 1, 0xffff, TO_GROUP_APP | TO_MGROUP_ONE, 0, 1},
+     {HK_HK_TLM_MID, {0, 0}, 1, 0xffff, TO_GROUP_APP | TO_MGROUP_ONE, 0, 1},
+     {CI_HK_TLM_MID, {0, 0}, 1, 0xffff, TO_GROUP_APP | TO_MGROUP_ONE, 0, 1},
+     {TO_DATA_TYPE_MID, {0, 0}, 1, 0xffff, TO_GROUP_APP | TO_MGROUP_ONE, 0, 1},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
 
-       /* 80 - 89 */
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
+     /* 30 - 39 */
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
 
-       /* 90 - 99 */
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0},
-       {TO_UNUSED_ENTRY,              {0,0},  0,   0x0000,     TO_GROUP_NONE,            0,0}
-    }
-};
+     /* 40 - 49 */
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+
+     /* 50 - 59 */
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+
+     /* 60 - 69 */
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+
+     /* 70 - 79 */
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+
+     /* 80 - 89 */
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+
+     /* 90 - 99 */
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0}}};
+
+CFE_TBL_FILEDEF(to_ConfigTable, TO.to_config, TO config table, to_config.tbl)
 
 /*
 ** External Global Variables
