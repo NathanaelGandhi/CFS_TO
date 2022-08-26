@@ -193,6 +193,8 @@ int32 TO_CustomEnableOutputCmd(const CFE_SB_Buffer_t *pCmdMsg)
     TO_EnableOutputCmd_t *pCustomCmd = (TO_EnableOutputCmd_t *)pCmdMsg;
     strncpy(cDestIp, pCustomCmd->cDestIp, sizeof(cDestIp));
 
+    CFE_EVS_SendEvent(TO_INF_EID, CFE_EVS_EventType_INFORMATION, "TO telemetry output enabled for IP %s", cDestIp);
+
     if (pCustomCmd->usDestPort > 0)
     {
         usDestPort = pCustomCmd->usDestPort;
