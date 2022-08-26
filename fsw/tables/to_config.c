@@ -210,7 +210,7 @@ TO_ConfigTable_t to_ConfigTable = {
      {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
      {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0}}};
 
-CFE_TBL_FILEDEF(to_ConfigTable, TO.to_config, TO config table, to_config.tbl)
+CFE_TBL_FILEDEF(to_ConfigTable, TO_APP.to_config, TO config table, to_config.tbl)
 
 /*
 ** External Global Variables
