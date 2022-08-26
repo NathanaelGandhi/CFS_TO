@@ -79,12 +79,10 @@ TO_ConfigTable_t to_ConfigTable = {
      //  "Much smaller code footprint. CF 3.0 is light-weight flight-only app. It does not provide any ground engine
      //  support." correctly, then this cna be commented out and not used. - LM
      //  {CF_SPACE_TO_GND_PDU_MID, {0, 0}, 32, 0xffff, TO_GROUP_CFE | TO_MGROUP_ONE, 0, 1},
-     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
 
      // TODO I dont think there are notes about this MID removal. It could be related to not supporting ground stations
      // anymore. making unused for now - LM
      //  {CF_TRANS_TLM_MID, {0, 0}, 1, 0xffff, TO_GROUP_CFE | TO_MGROUP_ONE, 0, 1},
-     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
 
      {CFE_ES_APP_TLM_MID, {0, 0}, 1, 0xffff, TO_GROUP_CFE | TO_MGROUP_ONE, 0, 1},
      {CFE_ES_HK_TLM_MID, {0, 0}, 1, 0xffff, TO_GROUP_CFE | TO_MGROUP_ONE, 0, 1},
@@ -92,7 +90,6 @@ TO_ConfigTable_t to_ConfigTable = {
      //  This has been deprecated according to issue nasa/to_lab#54. replacing with unsused for now until we can verify
      //  a replacement if there is one -LM
      // {CFE_ES_SHELL_TLM_MID, {0, 0}, 32, 0xffff, TO_GROUP_CFE | TO_MGROUP_ONE, 0, 1},
-     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
      // TODO TO_LAB has this as LONG_EVENT so I am taking that in the interest of expedience. This could also be
      // CFE_EVS_SHORT_EVENT_MSG_MID or something totally different... -LM
      // {CFE_EVS_EVENT_MSG_MID, {0, 0}, 32, 0xffff, TO_GROUP_CFE | TO_MGROUP_ONE, 0, 1},
@@ -109,7 +106,6 @@ TO_ConfigTable_t to_ConfigTable = {
      {CFE_TIME_DIAG_TLM_MID, {0, 0}, 1, 0xffff, TO_GROUP_CFE | TO_MGROUP_ONE, 0, 1},
      {CFE_TIME_HK_TLM_MID, {0, 0}, 1, 0xffff, TO_GROUP_CFE | TO_MGROUP_ONE, 0, 1},
      {TO_HK_TLM_MID, {0, 0}, 1, 0xffff, TO_GROUP_APP | TO_MGROUP_ONE, 0, 1},
-     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
      // {HS_HK_TLM_MID, {0, 0}, 1, 0xffff, TO_GROUP_APP | TO_MGROUP_ONE, 0, 1},
 
      /* 20 - 29 */
@@ -119,6 +115,12 @@ TO_ConfigTable_t to_ConfigTable = {
      {CI_HK_TLM_MID, {0, 0}, 1, 0xffff, TO_GROUP_APP | TO_MGROUP_ONE, 0, 1},
      {TO_DATA_TYPE_MID, {0, 0}, 1, 0xffff, TO_GROUP_APP | TO_MGROUP_ONE, 0, 1},
      {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+     {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
+
+     /* Replace removed entries */
      {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
      {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
      {TO_UNUSED_ENTRY, {0, 0}, 0, 0x0000, TO_GROUP_NONE, 0, 0},
