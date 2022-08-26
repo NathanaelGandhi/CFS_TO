@@ -116,7 +116,7 @@ extern "C"
 #define TO_CONFIG_TABLENAME "to_config"
 #endif
 #ifndef TO_CONFIG_FILENAME
-#define TO_CONFIG_FILENAME "/cf/apps/to_config.tbl"
+#define TO_CONFIG_FILENAME "/cf/to_config.tbl"
 #endif
 
 #ifndef TO_NUM_CF_CHANNELS
